@@ -12,7 +12,10 @@ any reader of the network can see.
 A GitHub Actions job ([`stats.yml`](.github/workflows/stats.yml)) starts Tor and
 connects to every node on the known-node list (UN-RFC 0010) as an ordinary
 reader. For each group it asks for a few headers of every article with `HDR`,
-and it reads the groups' signed manifests. It never posts and never decrypts
+and it reads the groups' signed manifests. Key-bound groups - inboxes,
+profiles, pictures - are not listed by nodes (UN-RFC 0040), so it finds their
+articles with `NEWNEWS` instead and reads their headers with `HEAD`; it counts
+them by name and does not fetch their manifests. It never posts and never decrypts
 anything. It is built on the Unseenet core, like
 [unseenet-bots](https://github.com/unseenet/unseenet-bots), and is also an
 example of a program that reads the network.

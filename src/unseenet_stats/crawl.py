@@ -4,6 +4,13 @@ The crawler connects to each listed node over Tor as an ordinary reader. It
 asks for the list of groups, the node's public information (UN-RFC 0011) and,
 per group, a few headers of every article with HDR. It never posts, never
 decrypts anything and keeps nothing between runs except the published counts.
+
+Key-bound groups (inboxes, profiles, pictures, revocation lists) are not
+listed by nodes that follow UN-RFC 0040, so they are found the other way:
+``NEWNEWS`` over their names, back as far as a key-bound manifest can be
+current, then the headers of each article with ``HEAD``. That works with
+nodes before UN-RFC 0040 too, which still list them and still put their
+state in part 1 of ``NEWNEWS``; there they are simply not read twice.
 """
 
 from __future__ import annotations
@@ -14,12 +21,12 @@ import json
 import logging
 import sys
 import tempfile
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from unseenet.core import crypto
 from unseenet.core.article import Article, ArticleError, parse_date
-from unseenet.core.groups import Manifest
+from unseenet.core.groups import KEY_BOUND_NAMES, MAX_LIFETIME, Manifest, is_key_bound
 from unseenet.known_nodes import NODES_GROUP, PROJECT_KEY, builtin_list, parse_node_list
 from unseenet.names import NAMES_GROUP
 from unseenet.nntp import Client, read_block, strip_reader_headers
@@ -34,6 +41,12 @@ FIELDS = ("Message-ID", "Date", "Author-Key", "Message-Kind", "Control", "Encryp
           "Origin-Network", "References")
 MULTILINE = {100, 101, 215, 220, 221, 222, 224, 225, 230, 231}
 CHUNK = 20                       # groups per pipelined batch
+HEAD_CHUNK = 200                 # articles per pipelined batch of HEAD
+# Every key-bound group by name (UN-RFC 0029 section 2), as a NEWNEWS wildmat.
+KEY_BOUND_WILDMAT = ",".join(f"{name}@*" for name in KEY_BOUND_NAMES)
+# A key-bound manifest is current for at most MAX_LIFETIME after its Date, and a
+# node received it after it was written, so this far back covers all their state.
+KEY_BOUND_SINCE = MAX_LIFETIME + timedelta(days=1)
 NODE_TIMEOUT = 900
 ATTEMPTS = 4
 
@@ -63,6 +76,53 @@ class NodeReading:
         self.subjects: dict[str, list[str]] = {}          # names group only
 
 
+def parse_head(lines: list[str]) -> dict[str, str]:
+    """The headers of a HEAD answer, by lower-case name (first one wins)."""
+    h: dict[str, str] = {}
+    last = None
+    for line in lines:
+        if line[:1] in (" ", "\t"):
+            if last:
+                h[last] += " " + line.strip()
+            continue
+        name, sep, value = line.partition(":")
+        last = None
+        if sep and name.strip() and name.strip().lower() not in h:
+            last = name.strip().lower()
+            h[last] = value.strip()
+    return h
+
+
+async def read_key_bound(c: Client, r: NodeReading, now: datetime | None = None) -> None:
+    """The articles of key-bound groups, found with part 2 of NEWNEWS (UN-RFC 0040).
+
+    Nodes that follow UN-RFC 0040 do not list key-bound groups, and leave them out
+    of part 1 of NEWNEWS; part 2 still has every article they received, manifests
+    included, and nothing in a key-bound group can be current and older than
+    KEY_BOUND_SINCE. Older nodes also send the state in part 1: same Message-IDs.
+    """
+    since = (now or datetime.now(timezone.utc)) - KEY_BOUND_SINCE
+    [(code, ids)] = await pipeline(
+        c, [f"NEWNEWS {KEY_BOUND_WILDMAT} {since:%Y%m%d %H%M%S} GMT"])
+    if code != 230 or not ids:
+        return
+    ids = list(dict.fromkeys(m for m in ids if m.startswith("<") and m not in r.headers))
+    for i in range(0, len(ids), HEAD_CHUNK):
+        batch = ids[i:i + HEAD_CHUNK]
+        for msgid, (hcode, lines) in zip(batch, await pipeline(c, [f"HEAD {m}" for m in batch])):
+            if hcode != 221 or not lines:
+                continue                         # expired in between: not there any more
+            head = parse_head(lines)
+            group = head.get("newsgroups", "").split(",")[0].strip()
+            if not is_key_bound(group):
+                continue
+            h = {f.lower(): head.get(f.lower(), "") for f in FIELDS}
+            h["message-id"] = msgid
+            h["newsgroups"] = group
+            r.headers.setdefault(msgid, h)
+            r.groups.setdefault(group, []).append(msgid)
+
+
 async def read_node(address: str, socks_port: int | None) -> NodeReading:
     r = NodeReading(address)
     c = await Client.connect(address, socks_port)
@@ -77,7 +137,7 @@ async def read_node(address: str, socks_port: int | None) -> NodeReading:
         for line in await c.list_active():
             parts = line.split()
             if len(parts) >= 3 and parts[1].isdigit() and parts[2].isdigit() \
-                    and int(parts[1]) >= int(parts[2]):
+                    and int(parts[1]) >= int(parts[2]) and not is_key_bound(parts[0]):
                 active.append(parts[0])
         for i in range(0, len(active), CHUNK):
             batch = active[i:i + CHUNK]
@@ -109,6 +169,7 @@ async def read_node(address: str, socks_port: int | None) -> NodeReading:
                     r.groups[g].append(msgid)
                 if g == NAMES_GROUP:
                     r.subjects[g] = list(per_field.get("subject", {}).values())
+        await read_key_bound(c, r)
     finally:
         try:
             await c.quit()
@@ -205,11 +266,15 @@ async def crawl(addresses: list[str] | None, socks_port: int | None) -> Crawl:
     fetched: list[Article] = []
 
     async def fetch_for(rs: list[NodeReading]) -> None:
-        """Manifests and node lists: each from the first node that has it."""
+        """Manifests and node lists: each from the first node that has it.
+
+        Not the manifests of key-bound groups: their name says all the counting
+        needs (classify.GroupInfo.key_bound), and there is one or more per person."""
         wanted: dict[str, list[str]] = {}
         for r in rs:
             for msgid, h in r.headers.items():
-                is_manifest = h.get("control", "").split()[:1] == ["manifest"]
+                is_manifest = h.get("control", "").split()[:1] == ["manifest"] \
+                    and not is_key_bound(h["newsgroups"])
                 if (is_manifest or h["newsgroups"] == NODES_GROUP) and msgid not in where:
                     where[msgid] = r.address
                     wanted.setdefault(r.address, []).append(msgid)
