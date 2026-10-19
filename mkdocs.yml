@@ -1,0 +1,57 @@
+site_name: Unseenet statistics
+site_description: The Unseenet network, counted every day from what any reader can see
+site_url: https://unseenet.github.io/unseenet-stats/
+repo_url: https://github.com/unseenet/unseenet-stats
+repo_name: unseenet/unseenet-stats
+copyright: Code Apache-2.0 · Logo CC BY 4.0 · Numbers free to use
+
+# The same look as unseenet.org: theme, palette, logo and the front page's styles
+# (docs/stylesheets/brand.css is a copy of unseenet's docs/stylesheets/home.css).
+theme:
+  name: material
+  logo: img/icon.svg
+  favicon: img/favicon.png
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: teal
+      accent: green
+      toggle:
+        icon: material/weather-night
+        name: Dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: teal
+      accent: green
+      toggle:
+        icon: material/weather-sunny
+        name: Light mode
+  # No Google Fonts: a privacy project should not make readers' browsers call Google.
+  font: false
+  features:
+    - navigation.top
+    - navigation.footer
+
+extra:
+  homepage: https://unseenet.org/
+  generator: false
+
+hooks:
+  - hooks/inline_stats.py
+
+extra_css:
+  - stylesheets/brand.css
+  - stylesheets/stats.css
+
+extra_javascript:
+  - javascripts/stats.js
+
+markdown_extensions:
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+
+nav:
+  - Statistics: index.md
+  - unseenet.org: https://unseenet.org/

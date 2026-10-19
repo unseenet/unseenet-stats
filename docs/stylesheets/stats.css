@@ -1,0 +1,203 @@
+/* The statistics page. Built on brand.css (unseenet.org's front page): same ink,
+   paper and greens, monospace for numbers like the article headers. */
+
+:root {
+  --k-post: #16a974;
+  --k-chat: #5ec2c9;
+  --k-comment: #8fd9b6;
+  --k-feed: #e0a640;
+  --k-closed: #5b8def;
+  --k-private: #8b7be8;
+  --k-imported: #d9739e;
+  --k-system: #a3aeb0;
+  --k-keys: #16a974;
+  --st-line: color-mix(in srgb, var(--md-default-fg-color) 12%, transparent);
+}
+[data-md-color-scheme="slate"] {
+  --k-post: #34d399;
+  --k-system: #6b7a7c;
+  --k-keys: #34d399;
+}
+
+.k-post { fill: var(--k-post); background: var(--k-post); }
+.k-chat { fill: var(--k-chat); background: var(--k-chat); }
+.k-comment { fill: var(--k-comment); background: var(--k-comment); }
+.k-feed { fill: var(--k-feed); background: var(--k-feed); }
+.k-closed { fill: var(--k-closed); background: var(--k-closed); }
+.k-private { fill: var(--k-private); background: var(--k-private); }
+.k-imported { fill: var(--k-imported); background: var(--k-imported); }
+.k-system { fill: var(--k-system); background: var(--k-system); }
+.k-keys { fill: var(--k-keys); background: var(--k-keys); }
+
+/* ---- Cards --------------------------------------------------------------- */
+
+.st-cards, .st-minis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(9rem, 40vw), 1fr));
+  gap: 0.8rem;
+  margin: 0 0 1.6rem;
+}
+.st-minis { margin: 0.4rem 0 1.2rem; grid-template-columns: repeat(auto-fit, minmax(min(8rem, 38vw), 1fr)); }
+.st-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--st-line);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--un-green) 5%, transparent);
+}
+.st-card__value {
+  font-family: var(--un-mono);
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--md-default-fg-color);
+}
+.st-minis .st-card__value { font-size: 1.2rem; }
+.st-card__label { font-weight: 600; font-size: 0.78rem; }
+.st-card__sub { font-size: 0.66rem; color: var(--md-default-fg-color--light); }
+
+/* ---- Panels ------------------------------------------------------------- */
+
+.st-panel {
+  border: 1px solid var(--st-line);
+  border-radius: 12px;
+  padding: 1rem 1.1rem;
+  margin: 0 0 1rem;
+  min-width: 0;
+}
+.st-panel__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+.md-typeset .st-panel__note {
+  margin: 0 0 0.6rem;
+  font-size: 0.72rem;
+  color: var(--md-default-fg-color--light);
+  max-width: 44rem;
+}
+.md-typeset h3.st-h {
+  margin: 0.2rem 0 0.6rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-family: var(--un-mono);
+  color: var(--md-default-fg-color--light);
+}
+.st-two { display: grid; grid-template-columns: 1.1fr 1fr; gap: 1rem; align-items: start; }
+.st-three { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; align-items: start; }
+@media (max-width: 52em) {
+  .st-two, .st-three { grid-template-columns: 1fr; }
+}
+.md-typeset .st-empty { margin: 0.4rem 0; color: var(--md-default-fg-color--light); font-size: 0.75rem; }
+
+/* ---- Range buttons ------------------------------------------------------ */
+
+.st-range { display: flex; gap: 0.3rem; }
+.md-typeset .st-range button {
+  font: inherit;
+  font-size: 0.68rem;
+  font-family: var(--un-mono);
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--st-line);
+  background: none;
+  color: var(--md-default-fg-color--light);
+  cursor: pointer;
+}
+.md-typeset .st-range button[aria-pressed="true"] {
+  background: var(--un-ink);
+  border-color: var(--un-ink);
+  color: var(--un-paper);
+}
+[data-md-color-scheme="slate"] .st-range button[aria-pressed="true"] {
+  background: var(--un-green);
+  border-color: var(--un-green);
+  color: var(--un-ink);
+}
+.st-range button:focus-visible { outline: 2px solid var(--un-green); outline-offset: 2px; }
+
+/* ---- Charts ------------------------------------------------------------- */
+
+.st-chart { position: relative; }
+.st-svg { width: 100%; height: auto; display: block; overflow: visible; }
+.st-grid { stroke: var(--st-line); stroke-width: 1; }
+.st-axis { fill: var(--md-default-fg-color--light); font-size: 11px; font-family: var(--un-mono); }
+.st-hit { fill: transparent; }
+.st-day { outline: none; cursor: default; }
+.st-day:hover .st-hit, .st-day:focus .st-hit { fill: color-mix(in srgb, var(--md-default-fg-color) 6%, transparent); }
+.st-tip {
+  position: absolute;
+  transform: translateY(-100%);
+  width: 150px;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  padding: 0.45rem 0.6rem;
+  border-radius: 8px;
+  background: var(--un-ink);
+  color: var(--un-paper);
+  font-family: var(--un-mono);
+  font-size: 0.62rem;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  z-index: 2;
+}
+.st-tip[hidden] { display: none; }
+
+.md-typeset ul.st-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem 1rem;
+  margin: 0.6rem 0 0 !important;
+  padding: 0;
+  list-style: none;
+  font-size: 0.68rem;
+}
+.md-typeset .st-legend li { margin: 0; display: flex; align-items: center; gap: 0.35rem; }
+.st-swatch {
+  display: inline-block;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 3px;
+  flex: none;
+}
+
+/* ---- Bars -------------------------------------------------------------- */
+
+.md-typeset ul.st-bars { list-style: none; margin: 0; padding: 0; }
+.md-typeset ul.st-bars li {
+  display: grid;
+  grid-template-columns: minmax(5.5rem, 8.5rem) 1fr 3.2rem;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0 0 0.35rem;
+  font-size: 0.72rem;
+}
+.st-bars__name { font-family: var(--un-mono); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.st-bars__track { height: 0.7rem; border-radius: 4px; background: var(--st-line); overflow: hidden; }
+.st-bars__bar { display: block; height: 100%; border-radius: 4px; background: var(--un-green-deep); }
+[data-md-color-scheme="slate"] .st-bars__bar { background: var(--un-green); }
+.st-bars__n { font-family: var(--un-mono); text-align: right; }
+
+/* ---- Kind explanations ---------------------------------------------------- */
+
+.md-typeset dl.st-kinds-help { margin: 0; font-size: 0.72rem; }
+.md-typeset dl.st-kinds-help dt {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 700;
+  margin-top: 0.5rem;
+}
+.md-typeset dl.st-kinds-help dt:first-child { margin-top: 0; }
+.md-typeset dl.st-kinds-help dd { margin: 0.1rem 0 0 1.1rem; color: var(--md-default-fg-color--light); }
+
+/* ---- Table and rules ------------------------------------------------------- */
+
+.md-typeset table.st-table { font-size: 0.72rem; display: table; }
+.md-typeset table.st-table td { font-family: var(--un-mono); }
+.st-rules { max-width: 46rem; }

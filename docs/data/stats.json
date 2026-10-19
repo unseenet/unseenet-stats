@@ -1,0 +1,128 @@
+{
+ "v": 1,
+ "generated": "2026-10-19T07:37:03Z",
+ "categories": [
+  "post",
+  "chat",
+  "comment",
+  "feed",
+  "closed",
+  "private",
+  "imported",
+  "system"
+ ],
+ "nodes": {
+  "listed": 4,
+  "reached": 4,
+  "versions": {
+   "unseenet 0.3.0": 4
+  },
+  "list_updated": "2026-10-17"
+ },
+ "groups": {
+  "total": 22,
+  "by_type": {
+   "moderated": 8,
+   "channel": 7,
+   "open": 7
+  },
+  "by_view": {
+   "threads": 21,
+   "chat": 1
+  },
+  "by_hierarchy": {
+   "test": 9,
+   "alt": 8,
+   "unseenet": 5
+  }
+ },
+ "articles": {
+  "on_nodes": {
+   "system": 118,
+   "post": 92,
+   "chat": 14,
+   "private": 36,
+   "imported": 277
+  },
+  "counted_since_start": {
+   "system": 118,
+   "private": 36,
+   "post": 92,
+   "imported": 277,
+   "chat": 14
+  },
+  "by_hierarchy": {
+   "test": 48,
+   "alt": 36,
+   "unseenet": 22
+  }
+ },
+ "keys": {
+  "active_7": 19,
+  "active_30": 19,
+  "active_90": 19,
+  "profiles": 2,
+  "inboxes": 10,
+  "names": 4
+ },
+ "gateways": {
+  "nostr": {
+   "articles": 275,
+   "gateways": 1,
+   "groups": 4
+  },
+  "usenet": {
+   "articles": 2,
+   "gateways": 1,
+   "groups": 2
+  }
+ },
+ "days": [
+  {
+   "date": "2026-10-15",
+   "categories": {
+    "system": 4,
+    "private": 2,
+    "post": 3
+   },
+   "keys": 2
+  },
+  {
+   "date": "2026-10-16",
+   "categories": {
+    "system": 39,
+    "private": 10,
+    "post": 8
+   },
+   "keys": 4
+  },
+  {
+   "date": "2026-10-17",
+   "categories": {
+    "private": 8,
+    "system": 46,
+    "imported": 275,
+    "post": 47
+   },
+   "keys": 5
+  },
+  {
+   "date": "2026-10-18",
+   "categories": {
+    "system": 29,
+    "post": 29,
+    "chat": 14,
+    "private": 16,
+    "imported": 2
+   },
+   "keys": 15
+  },
+  {
+   "date": "2026-10-19",
+   "categories": {
+    "post": 5
+   },
+   "keys": 5
+  }
+ ]
+}
