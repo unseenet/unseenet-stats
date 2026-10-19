@@ -9,6 +9,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+from unseenet.core.groups import KEY_BOUND_NAMES
+
 # The categories, in the order the page shows them.
 POST, CHAT, COMMENT, FEED, CLOSED, PRIVATE, IMPORTED, SYSTEM = (
     "post", "chat", "comment", "feed", "closed", "private", "imported", "system")
@@ -19,8 +21,9 @@ CATEGORIES = (POST, CHAT, COMMENT, FEED, CLOSED, PRIVATE, IMPORTED, SYSTEM)
 # and so are gateways (their key is the gateway's) and housekeeping.
 PEOPLE = frozenset({POST, CHAT, COMMENT, FEED})
 
-# Key-bound groups (UN-RFC 0029): profile@, avatar@, names@, inbox@
-KEY_BOUND = ("inbox", "names", "profile", "avatar")
+# Key-bound groups (UN-RFC 0029): profile@, avatar@, names@, inbox@ and those
+# later documents add - the same list the crawler and the nodes use.
+KEY_BOUND = KEY_BOUND_NAMES
 
 
 @dataclass
