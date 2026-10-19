@@ -4,7 +4,7 @@ Statistics for the [Unseenet](https://unseenet.org) network: how many nodes,
 groups, posts, chats and active keys there are, counted once a day from what
 any reader of the network can see.
 
-**The page:** https://unseenet.github.io/unseenet-stats/
+**The page:** https://stats.unseenet.org/
 **The numbers:** [`docs/data/stats.json`](docs/data/stats.json)
 
 ## How it counts
