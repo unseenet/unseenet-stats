@@ -1,6 +1,6 @@
 {
  "v": 1,
- "generated": "2026-10-19T07:42:28Z",
+ "generated": "2026-10-20T06:38:05Z",
  "categories": [
   "post",
   "chat",
@@ -20,52 +20,59 @@
   "list_updated": "2026-10-17"
  },
  "groups": {
-  "total": 22,
+  "total": 27,
   "by_type": {
-   "moderated": 8,
-   "channel": 7,
-   "open": 7
+   "moderated": 12,
+   "open": 8,
+   "channel": 7
   },
   "by_view": {
    "threads": 21,
-   "chat": 1
+   "chat": 6
   },
   "by_hierarchy": {
-   "test": 9,
+   "test": 12,
    "alt": 8,
-   "unseenet": 5
+   "unseenet": 6,
+   "matrix": 1
   }
  },
  "articles": {
   "on_nodes": {
-   "system": 118,
-   "post": 92,
-   "chat": 14,
-   "private": 36,
-   "imported": 277
+   "system": 150,
+   "post": 102,
+   "chat": 28,
+   "imported": 291,
+   "private": 50
   },
   "counted_since_start": {
-   "system": 118,
-   "private": 36,
-   "post": 92,
-   "imported": 277,
-   "chat": 14
+   "system": 150,
+   "private": 50,
+   "post": 102,
+   "imported": 291,
+   "chat": 28
   },
   "by_hierarchy": {
-   "test": 48,
-   "alt": 36,
-   "unseenet": 22
+   "test": 53,
+   "alt": 49,
+   "unseenet": 24,
+   "matrix": 4
   }
  },
  "keys": {
   "active_7": 19,
   "active_30": 19,
   "active_90": 19,
-  "profiles": 2,
-  "inboxes": 10,
+  "profiles": 3,
+  "inboxes": 13,
   "names": 4
  },
  "gateways": {
+  "matrix": {
+   "articles": 14,
+   "gateways": 3,
+   "groups": 5
+  },
   "nostr": {
    "articles": 275,
    "gateways": 1,
@@ -120,9 +127,20 @@
   {
    "date": "2026-10-19",
    "categories": {
-    "post": 5
+    "post": 13,
+    "chat": 14,
+    "system": 32,
+    "imported": 14,
+    "private": 14
    },
-   "keys": 5
+   "keys": 11
+  },
+  {
+   "date": "2026-10-20",
+   "categories": {
+    "post": 2
+   },
+   "keys": 2
   }
  ]
 }
