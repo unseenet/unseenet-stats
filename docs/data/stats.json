@@ -1,6 +1,6 @@
 {
  "v": 1,
- "generated": "2026-10-20T06:59:23Z",
+ "generated": "2026-10-20T10:01:09Z",
  "categories": [
   "post",
   "chat",
@@ -39,14 +39,14 @@
  },
  "articles": {
   "on_nodes": {
-   "system": 150,
+   "system": 154,
    "post": 102,
    "chat": 28,
    "imported": 291,
    "private": 50
   },
   "counted_since_start": {
-   "system": 150,
+   "system": 154,
    "private": 50,
    "post": 102,
    "imported": 291,
@@ -138,7 +138,8 @@
   {
    "date": "2026-10-20",
    "categories": {
-    "post": 2
+    "post": 2,
+    "system": 4
    },
    "keys": 2
   }
