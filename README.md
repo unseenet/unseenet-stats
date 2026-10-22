@@ -63,6 +63,20 @@ The page uses the same theme, logo and styles as unseenet.org.
 `docs/stylesheets/brand.css` is a copy of unseenet's `docs/stylesheets/home.css`;
 copy it again when the front page's look changes.
 
+## Versions and releases
+
+Versions follow [semantic versioning](https://semver.org/) on the same
+principles as [unseenet](https://github.com/unseenet/unseenet/blob/main/docs/development.md#versioning):
+tags `vX.Y.Z` on `main`, the changes in [CHANGELOG.md](CHANGELOG.md), and a
+GitHub release for each tag. This is one of the project's own services, so it
+is not on PyPI. Each release names the minor version of unseenet it works with
+(`unseenet>=0.4.1,<0.5`).
+
+To release: move the entries under `## [Unreleased]` in `CHANGELOG.md` to a
+new `## [X.Y.Z] - YYYY-MM-DD` section, set `__version__` in
+`src/unseenet_stats/__init__.py`, commit, then
+`git tag -a vX.Y.Z -m "unseenet-stats X.Y.Z" && git push origin vX.Y.Z`.
+
 ## License
 
 Code Apache-2.0. The Unseenet logo is CC BY 4.0. The numbers are free to use.
