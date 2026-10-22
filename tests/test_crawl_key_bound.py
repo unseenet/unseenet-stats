@@ -39,7 +39,7 @@ def _as_after_0040(node: Node) -> None:
     """Make the node answer as UN-RFC 0040 says: key-bound groups out of LIST and
     out of part 1 of NEWNEWS (both come from Store.groups), part 2 unchanged."""
     groups = node.store.groups
-    node.store.groups = lambda: [g for g in groups() if not is_key_bound(g[0])]
+    node.store.groups = lambda *a, **kw: [g for g in groups(*a, **kw) if not is_key_bound(g[0])]
 
 
 async def _read(node: Node) -> crawl.NodeReading:
