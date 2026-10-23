@@ -1,6 +1,6 @@
 {
  "v": 1,
- "generated": "2026-10-22T10:09:11Z",
+ "generated": "2026-10-23T10:01:47Z",
  "categories": [
   "post",
   "chat",
@@ -15,7 +15,7 @@
   "listed": 4,
   "reached": 4,
   "versions": {
-   "unseenet 0.3.0": 4
+   "unseenet 0.4.0": 4
   },
   "list_updated": "2026-10-17"
  },
@@ -39,32 +39,32 @@
  },
  "articles": {
   "on_nodes": {
-   "system": 223,
-   "post": 131,
-   "chat": 31,
+   "system": 290,
+   "post": 158,
+   "chat": 40,
    "imported": 291,
-   "private": 51
+   "private": 52
   },
   "counted_since_start": {
-   "system": 223,
-   "private": 51,
-   "post": 131,
+   "system": 290,
+   "private": 52,
+   "post": 158,
    "imported": 291,
-   "chat": 31
+   "chat": 40
   },
   "by_hierarchy": {
-   "alt": 69,
+   "alt": 97,
    "test": 53,
-   "unseenet": 35,
+   "unseenet": 43,
    "matrix": 5
   }
  },
  "keys": {
   "active_7": 30,
-  "active_30": 30,
-  "active_90": 30,
+  "active_30": 32,
+  "active_90": 32,
   "profiles": 3,
-  "inboxes": 39,
+  "inboxes": 42,
   "names": 4
  },
  "gateways": {
@@ -157,10 +157,20 @@
   {
    "date": "2026-10-22",
    "categories": {
-    "post": 3,
-    "system": 7
+    "post": 22,
+    "system": 64,
+    "chat": 9,
+    "private": 1
    },
-   "keys": 3
+   "keys": 10
+  },
+  {
+   "date": "2026-10-23",
+   "categories": {
+    "post": 8,
+    "system": 10
+   },
+   "keys": 5
   }
  ]
 }
