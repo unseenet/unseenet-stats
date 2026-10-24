@@ -1,6 +1,6 @@
 {
  "v": 1,
- "generated": "2026-10-23T10:01:47Z",
+ "generated": "2026-10-24T09:31:07Z",
  "categories": [
   "post",
   "chat",
@@ -15,56 +15,65 @@
   "listed": 4,
   "reached": 4,
   "versions": {
-   "unseenet 0.4.0": 4
+   "unseenet 0.4.3": 2,
+   "unseenet 0.4.0": 2
   },
   "list_updated": "2026-10-17"
  },
  "groups": {
-  "total": 27,
+  "total": 41,
   "by_type": {
-   "moderated": 12,
-   "open": 8,
-   "channel": 7
+   "channel": 16,
+   "open": 13,
+   "moderated": 12
   },
   "by_view": {
-   "threads": 21,
-   "chat": 6
+   "threads": 25,
+   "chat": 7,
+   "feed": 7,
+   "pages": 2
   },
   "by_hierarchy": {
    "test": 12,
    "alt": 8,
+   "dk": 8,
+   "feed": 6,
    "unseenet": 6,
    "matrix": 1
   }
  },
  "articles": {
   "on_nodes": {
-   "system": 290,
-   "post": 158,
-   "chat": 40,
+   "system": 379,
+   "post": 200,
+   "chat": 57,
+   "feed": 27,
    "imported": 291,
    "private": 52
   },
   "counted_since_start": {
-   "system": 290,
+   "system": 379,
    "private": 52,
-   "post": 158,
+   "post": 200,
    "imported": 291,
-   "chat": 40
+   "chat": 57,
+   "feed": 27
   },
   "by_hierarchy": {
-   "alt": 97,
+   "alt": 112,
    "test": 53,
-   "unseenet": 43,
+   "dk": 47,
+   "unseenet": 46,
+   "feed": 21,
    "matrix": 5
   }
  },
  "keys": {
-  "active_7": 30,
-  "active_30": 32,
-  "active_90": 32,
-  "profiles": 3,
-  "inboxes": 42,
+  "active_7": 36,
+  "active_30": 40,
+  "active_90": 40,
+  "profiles": 10,
+  "inboxes": 43,
   "names": 4
  },
  "gateways": {
@@ -167,10 +176,21 @@
   {
    "date": "2026-10-23",
    "categories": {
-    "post": 8,
-    "system": 10
+    "post": 33,
+    "system": 91,
+    "feed": 15
    },
-   "keys": 5
+   "keys": 16
+  },
+  {
+   "date": "2026-10-24",
+   "categories": {
+    "post": 17,
+    "chat": 17,
+    "system": 8,
+    "feed": 12
+   },
+   "keys": 9
   }
  ]
 }
