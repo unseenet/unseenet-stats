@@ -8,6 +8,10 @@ The daily counts themselves are data commits, not changes listed here.
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-10-25
+
+For unseenet 0.5 (`unseenet>=0.5,<0.6`): the crawler reads 0.5 nodes.
+
 ## [0.1.0] - 2026-10-22
 
 The first release. Works with unseenet 0.4 (`unseenet>=0.4.1,<0.5`).
@@ -21,5 +25,6 @@ The first release. Works with unseenet 0.4 (`unseenet>=0.4.1,<0.5`).
   [stats.unseenet.org](https://stats.unseenet.org), branded like
   unseenet.org.
 
-[Unreleased]: https://github.com/unseenet/unseenet-stats/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/unseenet/unseenet-stats/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/unseenet/unseenet-stats/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/unseenet/unseenet-stats/releases/tag/v0.1.0
