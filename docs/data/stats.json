@@ -1,6 +1,6 @@
 {
  "v": 1,
- "generated": "2026-10-24T09:31:07Z",
+ "generated": "2026-10-25T09:47:46Z",
  "categories": [
   "post",
   "chat",
@@ -21,58 +21,61 @@
   "list_updated": "2026-10-17"
  },
  "groups": {
-  "total": 41,
+  "total": 43,
   "by_type": {
-   "channel": 16,
+   "channel": 18,
    "open": 13,
    "moderated": 12
   },
   "by_view": {
    "threads": 25,
+   "feed": 8,
    "chat": 7,
-   "feed": 7,
-   "pages": 2
+   "pages": 3
   },
   "by_hierarchy": {
    "test": 12,
    "alt": 8,
    "dk": 8,
-   "feed": 6,
+   "feed": 7,
    "unseenet": 6,
-   "matrix": 1
+   "matrix": 1,
+   "site": 1
   }
  },
  "articles": {
   "on_nodes": {
-   "system": 379,
-   "post": 200,
-   "chat": 57,
-   "feed": 27,
-   "imported": 291,
+   "system": 461,
+   "post": 158,
+   "chat": 59,
+   "feed": 36,
+   "comment": 12,
+   "imported": 43,
    "private": 52
   },
   "counted_since_start": {
-   "system": 379,
+   "system": 476,
    "private": 52,
-   "post": 200,
-   "imported": 291,
-   "chat": 57,
-   "feed": 27
+   "post": 202,
+   "imported": 316,
+   "chat": 59,
+   "feed": 36,
+   "comment": 12
   },
   "by_hierarchy": {
-   "alt": 112,
-   "test": 53,
-   "dk": 47,
+   "alt": 114,
+   "dk": 59,
    "unseenet": 46,
-   "feed": 21,
+   "feed": 32,
+   "test": 9,
    "matrix": 5
   }
  },
  "keys": {
-  "active_7": 36,
-  "active_30": 40,
-  "active_90": 40,
-  "profiles": 10,
+  "active_7": 33,
+  "active_30": 39,
+  "active_90": 39,
+  "profiles": 17,
   "inboxes": 43,
   "names": 4
  },
@@ -83,14 +86,14 @@
    "groups": 5
   },
   "nostr": {
-   "articles": 275,
-   "gateways": 1,
-   "groups": 4
-  },
-  "usenet": {
-   "articles": 2,
+   "articles": 28,
    "gateways": 1,
    "groups": 2
+  },
+  "usenet": {
+   "articles": 1,
+   "gateways": 1,
+   "groups": 1
   }
  },
  "days": [
@@ -185,12 +188,23 @@
   {
    "date": "2026-10-24",
    "categories": {
-    "post": 17,
-    "chat": 17,
-    "system": 8,
-    "feed": 12
+    "post": 18,
+    "chat": 19,
+    "system": 96,
+    "feed": 21,
+    "comment": 11,
+    "imported": 25
    },
-   "keys": 9
+   "keys": 10
+  },
+  {
+   "date": "2026-10-25",
+   "categories": {
+    "post": 1,
+    "comment": 1,
+    "system": 9
+   },
+   "keys": 2
   }
  ]
 }
