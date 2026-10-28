@@ -1,6 +1,6 @@
 {
  "v": 1,
- "generated": "2026-10-27T10:31:28Z",
+ "generated": "2026-10-28T11:19:14Z",
  "categories": [
   "post",
   "chat",
@@ -43,36 +43,38 @@
  },
  "articles": {
   "on_nodes": {
-   "system": 614,
-   "feed": 101,
-   "comment": 2,
-   "chat": 50,
-   "post": 72,
-   "imported": 38,
-   "private": 60
+   "system": 683,
+   "closed": 2,
+   "feed": 113,
+   "comment": 3,
+   "chat": 52,
+   "post": 80,
+   "private": 66,
+   "imported": 38
   },
   "counted_since_start": {
-   "system": 637,
-   "private": 60,
-   "post": 218,
+   "system": 707,
+   "private": 66,
+   "post": 226,
    "imported": 322,
-   "chat": 73,
-   "feed": 118,
-   "comment": 14
+   "chat": 75,
+   "feed": 130,
+   "comment": 15,
+   "closed": 2
   },
   "by_hierarchy": {
-   "alt": 136,
-   "unseenet": 80,
+   "alt": 156,
+   "unseenet": 83,
    "matrix": 5,
    "test": 4
   }
  },
  "keys": {
-  "active_7": 21,
-  "active_30": 37,
-  "active_90": 37,
-  "profiles": 17,
-  "inboxes": 44,
+  "active_7": 20,
+  "active_30": 38,
+  "active_90": 38,
+  "profiles": 20,
+  "inboxes": 47,
   "names": 5
  },
  "gateways": {
@@ -220,13 +222,23 @@
   {
    "date": "2026-10-27",
    "categories": {
-    "system": 17,
-    "feed": 5,
-    "chat": 1,
-    "post": 1,
-    "private": 1
+    "system": 77,
+    "feed": 15,
+    "chat": 3,
+    "post": 9,
+    "private": 7,
+    "closed": 2,
+    "comment": 1
    },
-   "keys": 6
+   "keys": 10
+  },
+  {
+   "date": "2026-10-28",
+   "categories": {
+    "feed": 2,
+    "system": 10
+   },
+   "keys": 2
   }
  ]
 }
