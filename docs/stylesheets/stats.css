@@ -221,3 +221,12 @@
 .md-typeset table.st-table th, .md-typeset table.st-table td { padding: .35em 1.2em .35em 0; text-align: left;
   border-bottom: 1px solid var(--md-default-fg-color--lightest); font-family: var(--md-text-font-family, sans-serif); }
 .md-typeset table.st-table thead th { font-weight: 600; color: var(--md-default-fg-color--light); }
+
+.md-typeset table.st-table--wide { width: 100%; }
+.md-typeset table.st-table th code.st-fp { display: block; margin-top: .2em; font-size: .68rem; font-weight: 400; }
+.md-typeset table.st-table details.st-policy { margin: 0; padding: 0; border: 0; box-shadow: none; background: none; font-size: inherit; overflow: visible; }
+.md-typeset table.st-table details.st-policy > summary { padding: 0; margin: 0; background: none; border: 0; cursor: pointer; font-weight: 600; }
+.md-typeset table.st-table details.st-policy > summary::before { display: none; }
+.md-typeset table.st-table details.st-policy > summary::after { display: none; }
+.md-typeset table.st-table details.st-policy p { font-weight: 400; font-size: .74rem; max-width: 34em; line-height: 1.4; margin: .4em 0 .2em; }
+.md-typeset table.st-table .st-more { display: block; font-size: .68rem; font-weight: 400; color: var(--md-accent-fg-color, #16a974); }

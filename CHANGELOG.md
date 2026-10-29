@@ -37,6 +37,10 @@ For unseenet 0.6 (`unseenet>=0.6,<0.7`): release once the nodes run 0.6.
 - Spam reports and labels with their number of issuers, and active keys without
   bots (their profile says so) and the demo's people (#16).
 
+- Spam-report issuers and labellers listed from their signed settings: whether a
+  program or people make them, their policy, how many they have published, how many
+  nodes follow them, and which hierarchies name them as the default.
+
 ### Changed
 
 - Workflows use `actions/checkout@v5` and `actions/setup-python@v6`.
