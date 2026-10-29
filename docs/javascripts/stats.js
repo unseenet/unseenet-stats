@@ -6,17 +6,29 @@
     post:     { label: "Posts",          help: "Messages meant to be read on their own, with a subject: threads and replies (UN-RFC 0028)." },
     chat:     { label: "Chats",          help: "Short lines in a running conversation, in chat groups or mixed groups (UN-RFC 0028)." },
     comment:  { label: "Comments",       help: "Replies in a channel by someone who is not one of its writers (UN-RFC 0030)." },
-    feed:     { label: "Feed entries",   help: "Entries in feeds, the Mastodon-like groups coming in 0.5.0 (UN-RFC 0034)." },
+    feed:     { label: "Feed entries",   help: "Entries in feeds people follow - their own feeds and shared ones - newest first (UN-RFC 0034)." },
+    page:     { label: "Pages",          help: "Pages of sites, people's own and shared ones (UN-RFC 0035)." },
+    reaction: { label: "Reactions",      help: "A single emoji on a post, chat line or comment (UN-RFC 0048). A reaction alone does not make a key count as active." },
+    edit:     { label: "Edits",          help: "New versions of something already written, replacing the earlier one (UN-RFC 0042)." },
     closed:   { label: "Closed groups",  help: "Messages in closed groups. They are encrypted, so whether each one is a chat or a post is not visible." },
     private:  { label: "Private",        help: "Private chats and posts between two keys, sealed for the receiver. Only the number is visible." },
     imported: { label: "From gateways",  help: "Messages a gateway brought in from another network, such as Usenet or Nostr (UN-RFC 0023)." },
-    system:   { label: "Housekeeping",   help: "Group settings, node lists, names, profiles and the daily canaries that check nodes are connected." }
+    system:   { label: "Housekeeping",   help: "What programs read, not people: key ripening, profiles and pictures, each person's encrypted state, spam reports and labels, group settings, and the network's lists and canaries." }
   };
-  var VIEWS = { threads: "Discussion", chat: "Chat", feed: "Feed", data: "Data" };
+  var VIEWS = { threads: "Discussion", chat: "Chat", feed: "Feed", pages: "Site", data: "Data" };
+  var SYSTEM_PARTS = {
+    ripening: "Key ripening",
+    profiles: "Profiles, pictures",
+    state:    "Encrypted state",
+    reports:  "Reports, labels",
+    control:  "Group settings",
+    lists:    "Lists, canaries"
+  };
   var TYPES = { open: "Open", moderated: "Moderated", channel: "Channel", closed: "Closed", inbox: "Inbox" };
 
   var data = null;
   var range = 30;
+  var withGateways = false;     // gateways can bring in thousands at once (backfill)
 
   function el(tag, attrs, text) {
     var e = document.createElement(tag);
@@ -93,8 +105,12 @@
     box.textContent = "";
     if (!days.length) { box.appendChild(el("p", { "class": "st-empty" }, "No data yet.")); return; }
     var W = 760, H = height, padL = 34, padB = 22, padT = 8;
-    var cats = data.categories;
-    var totals = days.map(function (d) { return stacked ? sum(d.categories) : d.keys; });
+    var cats = data.categories.filter(function (c) {
+      return KINDS[c] && (withGateways || c !== "imported");
+    });
+    var totals = days.map(function (d) {
+      return stacked ? cats.reduce(function (t, c) { return t + (d.categories[c] || 0); }, 0) : d.keys;
+    });
     var max = Math.max(1, Math.max.apply(null, totals));
     var step = Math.pow(10, Math.floor(Math.log10(max)));
     var top = Math.ceil(max / step) * step;
@@ -162,18 +178,18 @@
     var d = data;
     // "Mon, 19 Oct 2026 07:37 UTC", like a Date header
     byId("st-date").textContent = new Date(d.generated).toUTCString().replace(/:\d\d GMT$/, " UTC");
-    var people = ["post", "chat", "comment", "feed"].reduce(function (s, k) { return s + (d.articles.on_nodes[k] || 0); }, 0);
+    var people = ["post", "chat", "comment", "feed", "page"].reduce(function (s, k) { return s + (d.articles.on_nodes[k] || 0); }, 0);
 
     var cards = byId("st-cards");
     cards.textContent = "";
     card(cards, d.nodes.reached + " / " + d.nodes.listed, "nodes answered", "of the listed nodes, today");
     card(cards, fmt(d.groups.total), "groups", "for people, not counting inboxes and lists");
-    card(cards, fmt(people), "posts, chats and comments", "on the nodes now, in the open");
+    card(cards, fmt(people), "posts, chats, comments and pages", "on the nodes now, in the open");
     card(cards, fmt(d.keys.active_30), "active keys", "wrote something in the last 30 days");
 
     var legend = byId("st-legend");
     legend.textContent = "";
-    d.categories.forEach(function (k) {
+    d.categories.filter(function (k) { return KINDS[k]; }).forEach(function (k) {
       var li = el("li");
       li.appendChild(el("span", { "class": "st-swatch k-" + k, "aria-hidden": "true" }));
       li.appendChild(document.createTextNode(KINDS[k].label));
@@ -181,11 +197,12 @@
     });
     drawDays();
 
-    bars(byId("st-kinds"), d.categories.map(function (k) { return [k, d.articles.on_nodes[k] || 0]; }),
-         Object.fromEntries(d.categories.map(function (k) { return [k, KINDS[k].label]; })), true);
+    bars(byId("st-system"), entriesOf((d.articles.system_parts) || {}), SYSTEM_PARTS);
+    bars(byId("st-kinds"), d.categories.filter(function (k) { return KINDS[k]; }).map(function (k) { return [k, d.articles.on_nodes[k] || 0]; }),
+         Object.fromEntries(d.categories.filter(function (k) { return KINDS[k]; }).map(function (k) { return [k, KINDS[k].label]; })), true);
     var help = byId("st-kinds-help");
     help.textContent = "";
-    d.categories.forEach(function (k) {
+    d.categories.filter(function (k) { return KINDS[k]; }).forEach(function (k) {
       var dt = el("dt");
       dt.appendChild(el("span", { "class": "st-swatch k-" + k, "aria-hidden": "true" }));
       dt.appendChild(document.createTextNode(KINDS[k].label));
@@ -202,6 +219,11 @@
     card(keys, fmt(d.keys.profiles), "profiles");
     card(keys, fmt(d.keys.inboxes), "inboxes", "can receive private messages");
 
+    var personal = d.groups.personal || {};
+    var pbox = byId("st-personal");
+    pbox.textContent = "";
+    card(pbox, fmt(personal.feeds), "personal feeds", "one person's own feed");
+    card(pbox, fmt(personal.sites), "personal sites", "one person's own site");
     bars(byId("st-hier"), entriesOf(d.groups.by_hierarchy).map(function (e) { return [e[0] + ".*", e[1]]; }));
     bars(byId("st-types"), entriesOf(d.groups.by_type), TYPES);
     bars(byId("st-views"), entriesOf(d.groups.by_view), VIEWS);
@@ -250,6 +272,10 @@
         if (data) { drawDays(); }
       });
     });
+    var gw = byId("st-with-gw");
+    if (gw) {
+      gw.addEventListener("change", function () { withGateways = gw.checked; if (data) { drawDays(); } });
+    }
     var inline = byId("st-data");
     if (inline && inline.textContent.trim()) {
       try { data = JSON.parse(inline.textContent); } catch (e) { data = null; }

@@ -13,9 +13,11 @@ from collections import Counter, defaultdict
 from dataclasses import dataclass, field
 from datetime import date, datetime, timedelta, timezone
 
-from .classify import CATEGORIES, IMPORTED, PEOPLE, GroupInfo
+from .classify import CATEGORIES, IMPORTED, PEOPLE, SYSTEM, SYSTEM_PARTS, GroupInfo
 
-VERSION = 1
+# 2: categories page, reaction and edit; personal feeds and sites counted by view
+# (#11). Days counted under version 1 that the nodes still carry are counted again.
+VERSION = 2
 
 
 @dataclass
@@ -26,6 +28,7 @@ class Seen:
     category: str
     author: str = ""
     network: str = ""
+    part: str = ""             # what a system article is (classify.SYSTEM_PARTS)
 
 
 @dataclass
@@ -58,13 +61,17 @@ def _active(crawl: Crawl, days: int) -> int:
                 if a.category in PEOPLE and a.author and a.day >= since})
 
 
-def merge_days(old: list[dict], new: dict[str, dict], today: date) -> list[dict]:
+def merge_days(old: list[dict], new: dict[str, dict], today: date,
+               recount: bool = False) -> list[dict]:
     """Earlier days plus this crawl's, never lowering a count. Days in the future
-    (a wrong clock in a Date header) are dropped."""
+    (a wrong clock in a Date header) are dropped. With ``recount`` (the earlier
+    file was counted under other rules), a day this crawl saw is replaced, not merged."""
     by_day = {d["date"]: d for d in old}
     for d, v in new.items():
         if date.fromisoformat(d) > today:
             continue
+        if recount:
+            by_day.pop(d, None)
         cur = by_day.setdefault(d, {"date": d, "categories": {}, "keys": 0})
         for cat, n in v["categories"].items():
             cur["categories"][cat] = max(cur["categories"].get(cat, 0), n)
@@ -74,7 +81,9 @@ def merge_days(old: list[dict], new: dict[str, dict], today: date) -> list[dict]
 
 def build(crawl: Crawl, previous: dict | None = None) -> dict:
     today = crawl.started.date()
-    days = merge_days((previous or {}).get("days", []), _days(crawl), today)
+    previous = previous or {}
+    recount = bool(previous) and previous.get("v") != VERSION
+    days = merge_days(previous.get("days", []), _days(crawl), today, recount=recount)
 
     in_window = Counter()
     for a in crawl.articles.values():
@@ -84,11 +93,16 @@ def build(crawl: Crawl, previous: dict | None = None) -> dict:
         total.update(d["categories"])
 
     groups = [g for g in crawl.groups.values()]
+    # Groups for people: not data, not inboxes, and of the key-bound ones only
+    # personal feeds and sites - counted apart, as there is one per person.
     people_groups = [g for g in groups
                      if not g.key_bound and g.view != "data" and g.type != "inbox"]
+    personal = Counter(g.name for g in groups if g.personal)
+    system = Counter(a.part for a in crawl.articles.values() if a.category == SYSTEM)
     hier_articles = Counter(crawl.groups[a.group_id].hierarchy
                             for a in crawl.articles.values()
-                            if a.category in PEOPLE and a.group_id in crawl.groups)
+                            if a.category in PEOPLE and a.group_id in crawl.groups
+                            and not crawl.groups[a.group_id].personal)
 
     networks: dict[str, dict] = {}
     for a in crawl.articles.values():
@@ -110,9 +124,11 @@ def build(crawl: Crawl, previous: dict | None = None) -> dict:
             "by_type": dict(Counter(g.type for g in people_groups).most_common()),
             "by_view": dict(Counter(g.view for g in people_groups).most_common()),
             "by_hierarchy": dict(Counter(g.hierarchy for g in people_groups).most_common()),
+            "personal": {"feeds": personal.get("feed", 0), "sites": personal.get("site", 0)},
         },
         "articles": {
             "on_nodes": dict(in_window),
+            "system_parts": {k: system[k] for k in SYSTEM_PARTS if system[k]},
             "counted_since_start": dict(total),
             "by_hierarchy": dict(hier_articles.most_common()),
         },

@@ -47,7 +47,9 @@ much of the traffic is the project testing itself.</p>
 <div class="st-panel">
   <div class="st-panel__bar">
     <p class="st-panel__note">Everything the nodes carried, by the day in its <code>Date</code>
-    header. Hover or tap a bar for the day's numbers.</p>
+    header. Hover or tap a bar for the day's numbers.
+    <label class="st-check"><input type="checkbox" id="st-with-gw"> Include messages from
+    gateways</label>, which can bring in thousands at once.</p>
     <div class="st-range" role="group" aria-label="Period">
       <button type="button" data-days="30" aria-pressed="true">30 days</button>
       <button type="button" data-days="90" aria-pressed="false">90 days</button>
@@ -68,18 +70,28 @@ much of the traffic is the project testing itself.</p>
 <dl class="st-kinds-help" id="st-kinds-help"></dl>
 </div>
 
+<div class="st-panel">
+  <h3 class="st-h">Housekeeping, in parts</h3>
+  <p class="st-panel__note">Much of what nodes carry is for programs, not people: the network's
+  lists, group settings, proof that a new key has waited (key ripening), profiles, and each
+  person's encrypted state.</p>
+  <div id="st-system"></div>
+</div>
+
 ## Keys { #keys }
 
 <div class="st-panel">
   <p class="st-panel__note">A key is what you are in Unseenet. One person can have several,
   so this is the number of <strong>keys that wrote something in the open</strong> - posts,
-  chats, comments and feed entries - not the number of people.</p>
+  chats, comments, feed entries, pages and edits, not reactions alone - not the number of people.</p>
   <div class="st-minis" id="st-keys"></div>
   <h3 class="st-h">Keys that wrote something, per day</h3>
   <div id="st-keys-daily" class="st-chart st-chart--small"></div>
 </div>
 
 ## Groups { #groups }
+
+<div class="st-minis" id="st-personal"></div>
 
 <div class="st-three">
   <div class="st-panel"><h3 class="st-h">By hierarchy</h3><div id="st-hier"></div></div>
