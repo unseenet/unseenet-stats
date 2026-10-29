@@ -280,6 +280,7 @@
       card(pol, p.encrypted_files + " / " + r, "carry encrypted files", "for closed groups and private posts");
       card(pol, p.sites + " / " + r, "carry sites");
       card(pol, p.profiles + " / " + r, "carry profiles");
+      card(pol, p.follow_reports + " / " + r, "follow spam reports", "of an issuer they name (UN-RFC 0045)");
       if (p.retention_days && p.retention_days.length) {
         card(pol, p.retention_days[0] === p.retention_days[1] ? String(p.retention_days[0])
              : p.retention_days[0] + "-" + p.retention_days[1], "days kept", "before articles expire");
