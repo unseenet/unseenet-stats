@@ -1,6 +1,6 @@
 {
  "v": 2,
- "generated": "2026-10-29T10:45:25Z",
+ "generated": "2026-10-29T11:19:32Z",
  "categories": [
   "post",
   "chat",
@@ -50,30 +50,30 @@
  },
  "articles": {
   "on_nodes": {
-   "system": 686,
+   "system": 694,
    "closed": 2,
-   "feed": 170,
+   "feed": 169,
    "reaction": 5,
    "comment": 8,
    "chat": 53,
    "post": 76,
    "private": 69,
-   "imported": 4531,
+   "imported": 4570,
    "page": 21
   },
   "system_parts": {
-   "ripening": 132,
+   "ripening": 133,
    "profiles": 62,
-   "state": 36,
-   "reports": 15,
-   "control": 219,
-   "lists": 222
+   "state": 37,
+   "reports": 9,
+   "control": 226,
+   "lists": 227
   },
   "counted_since_start": {
-   "system": 686,
+   "system": 694,
    "private": 69,
    "post": 76,
-   "imported": 4531,
+   "imported": 4590,
    "feed": 170,
    "chat": 53,
    "comment": 8,
@@ -83,7 +83,7 @@
   },
   "by_hierarchy": {
    "alt": 167,
-   "unseenet": 86,
+   "unseenet": 85,
    "matrix": 5,
    "test": 4
   }
@@ -100,20 +100,20 @@
   "demo": 7
  },
  "moderation": {
-  "reports": 15,
+  "reports": 9,
   "report_issuers": 3,
   "label_issuers": 1
  },
  "releases": {
-  "dev": {
-   "version": "0.5.1.dev104",
-   "date": "2026-10-28",
-   "signed_by": "release key"
-  },
   "stable": {
    "version": "0.5.0",
    "date": "2026-10-25",
    "signed_by": "project key"
+  },
+  "dev": {
+   "version": "0.5.1.dev104",
+   "date": "2026-10-28",
+   "signed_by": "release key"
   }
  },
  "node_list": {
@@ -143,7 +143,7 @@
    "sites": 4,
    "profiles": 4,
    "pictures": 4,
-   "follow_reports": 0,
+   "follow_reports": 4,
    "retention_days": [
     90,
     90
@@ -191,6 +191,50 @@
    "governed": 1
   }
  },
+ "issuers": [
+  {
+   "kind": "labels",
+   "title": "Content labels",
+   "automatic": true,
+   "policy": "Automatic. Labels posts with profanity (swearing, oaths) and sexual words, from its own word lists in nine languages: whole words and phrases only, at least two in a post or one in a very short post; insults are not labelled. Describes, never sanctions. https://github.com/unseenet/unseenet-watchman",
+   "fingerprint": "qsr3vivzigx6ynyk",
+   "published": 1,
+   "nodes_following": 0,
+   "recommended_for": []
+  },
+  {
+   "kind": "reports",
+   "title": "Spam reports",
+   "automatic": false,
+   "policy": "Spam reports from the Unseenet project: floods of the same text, phishing and malware, in the hierarchies the project looks after. Reports name posts, and keys for at most a year; they are made by people, not programs. Nothing is hidden for anyone who does not follow this issuer.",
+   "fingerprint": "5ymy3tyxdiol6jdf",
+   "published": 3,
+   "nodes_following": 4,
+   "recommended_for": [
+    "unseenet.*"
+   ]
+  },
+  {
+   "kind": "reports",
+   "title": "Spam reports",
+   "automatic": true,
+   "policy": "Automatic. Reports posts that look like spam: the same text from many new keys, the same text from one key in many groups, or links to domains on URI blocklists for spam. A key only after repeated findings, for 30 days. https://github.com/unseenet/unseenet-watchman",
+   "fingerprint": "rbct47jjhnp5peqb",
+   "published": 5,
+   "nodes_following": 4,
+   "recommended_for": []
+  },
+  {
+   "kind": "reports",
+   "title": "Spam reports",
+   "automatic": true,
+   "policy": "Automatic. Reports posts with links to domains on URI blocklists for phishing and malware. A key only after repeated findings, for 30 days. https://github.com/unseenet/unseenet-watchman",
+   "fingerprint": "wtgz6hv3kmyyfanw",
+   "published": 0,
+   "nodes_following": 4,
+   "recommended_for": []
+  }
+ ],
  "canary": {
   "date": "2026-10-28",
   "posted": 4,
@@ -208,7 +252,7 @@
    "groups": 2
   },
   "usenet": {
-   "articles": 4493,
+   "articles": 4532,
    "gateways": 2,
    "groups": 24
   }
@@ -375,9 +419,9 @@
    "date": "2026-10-29",
    "categories": {
     "feed": 3,
-    "imported": 161,
+    "imported": 220,
     "post": 2,
-    "system": 10
+    "system": 18
    },
    "keys": 4
   }
