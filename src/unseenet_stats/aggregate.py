@@ -29,6 +29,7 @@ class Seen:
     author: str = ""
     network: str = ""
     part: str = ""             # what a system article is (classify.SYSTEM_PARTS)
+    reply: bool = False        # has References
 
 
 @dataclass
@@ -42,6 +43,9 @@ class Crawl:
     node_versions: Counter = field(default_factory=Counter)
     list_updated: str = ""
     names: set[str] = field(default_factory=set)                   # registered names
+    network: dict = field(default_factory=dict)                    # network.py's sections
+    bots: set[str] = field(default_factory=set)                    # keys whose profile says bot
+    demo: set[str] = field(default_factory=set)                    # the demo's people
 
 
 def _days(crawl: Crawl) -> dict[str, dict]:
@@ -55,10 +59,10 @@ def _days(crawl: Crawl) -> dict[str, dict]:
     return {d: {"categories": dict(c), "keys": len(keys[d])} for d, c in cats.items()}
 
 
-def _active(crawl: Crawl, days: int) -> int:
+def _active(crawl: Crawl, days: int, without: set[str] = frozenset()) -> int:
     since = crawl.started.date() - timedelta(days=days - 1)
     return len({a.author for a in crawl.articles.values()
-                if a.category in PEOPLE and a.author and a.day >= since})
+                if a.category in PEOPLE and a.author and a.day >= since} - without)
 
 
 def merge_days(old: list[dict], new: dict[str, dict], today: date,
@@ -139,7 +143,19 @@ def build(crawl: Crawl, previous: dict | None = None) -> dict:
             "profiles": sum(1 for g in groups if g.key_bound == "profile"),
             "inboxes": sum(1 for g in groups if g.key_bound == "inbox" or g.type == "inbox"),
             "names": len(crawl.names),
+            # without bots (their profile says so) and the demo's people (#16)
+            "people_30": _active(crawl, 30, crawl.bots | crawl.demo),
+            "bots": len(crawl.bots),
+            "demo": len(crawl.demo),
         },
+        "moderation": {
+            "reports": system.get("reports", 0),
+            "report_issuers": len({a.group_id for a in crawl.articles.values()
+                                   if a.group_id.startswith("reports@")}),
+            "label_issuers": len({a.group_id for a in crawl.articles.values()
+                                  if a.group_id.startswith("labels@")}),
+        },
+        **crawl.network,
         "gateways": {
             net: {"articles": v["articles"], "gateways": len(v["gateways"]),
                   "groups": len(v["groups"])}

@@ -27,10 +27,11 @@ from pathlib import Path
 from unseenet.core import crypto
 from unseenet.core.article import Article, ArticleError, parse_date
 from unseenet.core.groups import KEY_BOUND_NAMES, MAX_LIFETIME, Manifest, is_key_bound
-from unseenet.known_nodes import NODES_GROUP, PROJECT_KEY, builtin_list, parse_node_list
+from unseenet.known_nodes import CANARY_GROUP, NODES_GROUP, PROJECT_KEY, builtin_list, parse_node_list
 from unseenet.names import NAMES_GROUP
 from unseenet.nntp import Client, read_block, strip_reader_headers
 
+from . import network
 from .aggregate import Crawl, Seen, build
 from .classify import SYSTEM, GroupInfo, category, system_part
 
@@ -71,6 +72,7 @@ class NodeReading:
     def __init__(self, address: str):
         self.address = address
         self.version = ""
+        self.info: dict = {}                              # LIST UNSEENET-NODEINFO
         self.headers: dict[str, dict[str, str]] = {}      # Message-ID -> headers
         self.groups: dict[str, list[str]] = {}            # group -> Message-IDs
         self.subjects: dict[str, list[str]] = {}          # names group only
@@ -130,9 +132,10 @@ async def read_node(address: str, socks_port: int | None) -> NodeReading:
         [(code, info)] = await pipeline(c, ["LIST UNSEENET-NODEINFO"])
         if code == 215 and info:
             try:
-                r.version = str(json.loads(info[0]).get("software", ""))[:40]
+                r.info = json.loads(info[0])
+                r.version = str(r.info.get("software", ""))[:40]
             except (ValueError, AttributeError):
-                pass
+                r.info = {}
         active = []
         for line in await c.list_active():
             parts = line.split()
@@ -145,13 +148,14 @@ async def read_node(address: str, socks_port: int | None) -> NodeReading:
             for g in batch:
                 commands.append(f"GROUP {g}")
                 commands += [f"HDR {f} 1-" for f in FIELDS]
-                if g == NAMES_GROUP:
+                if g == NAMES_GROUP or g in network.SUBJECT_GROUPS:
                     commands.append("HDR Subject 1-")
             answers = iter(await pipeline(c, commands))
             for g in batch:
                 code, _ = next(answers)
                 per_field = {}
-                for f in FIELDS + (("Subject",) if g == NAMES_GROUP else ()):
+                with_subject = g == NAMES_GROUP or g in network.SUBJECT_GROUPS
+                for f in FIELDS + (("Subject",) if with_subject else ()):
                     fcode, lines = next(answers)
                     if code == 211 and fcode == 225:
                         per_field[f.lower()] = dict(
@@ -167,8 +171,10 @@ async def read_node(address: str, socks_port: int | None) -> NodeReading:
                     h["newsgroups"] = g
                     r.headers.setdefault(msgid, h)
                     r.groups[g].append(msgid)
-                if g == NAMES_GROUP:
-                    r.subjects[g] = list(per_field.get("subject", {}).values())
+                if with_subject:
+                    subj = per_field.get("subject", {})
+                    r.subjects[g] = [(ids.get(n, ""), v) for n, v in subj.items()] \
+                        if g != NAMES_GROUP else list(subj.values())
         await read_key_bound(c, r)
     finally:
         try:
@@ -210,7 +216,7 @@ def _date(value: str):
 
 
 def newest_node_list(arts: list[Article]) -> tuple[str, list[str]] | None:
-    """(updated, node addresses) from the newest valid list in unseenet.nodes, posted
+    """(updated, known nodes) from the newest valid list in unseenet.nodes, posted
     by the project key or a poster in the group's signed manifest."""
     info = group_info(NODES_GROUP, [a for a in arts if a.group == NODES_GROUP
                                     and a.control and a.control[0] == "manifest"])
@@ -225,7 +231,7 @@ def newest_node_list(arts: list[Article]) -> tuple[str, list[str]] | None:
             continue
         d = _date(art.get("Date", ""))
         if d and (best is None or d > best[0]):
-            best = (d, updated, [n.address for n in nodes])
+            best = (d, updated, nodes)
     return (best[1], best[2]) if best else None
 
 
@@ -245,7 +251,8 @@ def group_info(group_id: str, manifests: list[Article]) -> GroupInfo:
                      starters=frozenset(crypto.key_to_text(k) for k in starters), known=True)
 
 
-async def crawl(addresses: list[str] | None, socks_port: int | None) -> Crawl:
+async def crawl(addresses: list[str] | None, socks_port: int | None,
+                check_entrances: bool = True) -> Crawl:
     started = datetime.now(timezone.utc)
     if not addresses:
         addresses = [n.address for n in builtin_list()[1]]
@@ -271,13 +278,24 @@ async def crawl(addresses: list[str] | None, socks_port: int | None) -> Crawl:
         Not the manifests of key-bound groups: their name says all the counting
         needs (classify.GroupInfo.key_bound), and there is one or more per person."""
         wanted: dict[str, list[str]] = {}
+
+        def want(msgid, addr):
+            if msgid not in where:
+                where[msgid] = addr
+                wanted.setdefault(addr, []).append(msgid)
+
         for r in rs:
             for msgid, h in r.headers.items():
-                is_manifest = h.get("control", "").split()[:1] == ["manifest"] \
-                    and not is_key_bound(h["newsgroups"])
-                if (is_manifest or h["newsgroups"] == NODES_GROUP) and msgid not in where:
-                    where[msgid] = r.address
-                    wanted.setdefault(r.address, []).append(msgid)
+                g = h["newsgroups"]
+                manifest = h.get("control", "").split()[:1] == ["manifest"]
+                # Manifests, except key-bound ones - but profiles, to see who is a bot (#16)
+                if manifest and (not is_key_bound(g) or g.startswith("profile@")):
+                    want(msgid, r.address)
+            for g, n in network.FETCH_NEWEST.items():
+                ids = sorted(r.groups.get(g, []), key=lambda m: _date(r.headers[m].get("date", ""))
+                             or datetime.min.replace(tzinfo=timezone.utc))
+                for msgid in ids[-n:]:
+                    want(msgid, r.address)
         for addr, ids in wanted.items():
             try:
                 fetched.extend(await asyncio.wait_for(fetch_articles(addr, socks_port, ids),
@@ -290,13 +308,15 @@ async def crawl(addresses: list[str] | None, socks_port: int | None) -> Crawl:
 
     # The network's own list (UN-RFC 0010) may name nodes the built-in list does not.
     listed = newest_node_list(fetched)
+    known = {n.address: n for n in builtin_list()[1]}
     if listed:
         result.list_updated = listed[0]
-        extra = [a for a in listed[1] if a not in addresses]
+        extra = [n.address for n in listed[1] if n.address not in addresses]
         more = [r for r in await asyncio.gather(*(one(a) for a in extra)) if r]
         await fetch_for(more)
         readings += more
-        result.nodes_listed = len(set(addresses) | set(listed[1]))
+        known.update({n.address: n for n in listed[1]})
+        result.nodes_listed = len(set(addresses) | {n.address for n in listed[1]})
     result.nodes_reached = len(readings)
     for r in readings:
         if r.version:
@@ -319,12 +339,35 @@ async def crawl(addresses: list[str] | None, socks_port: int | None) -> Crawl:
                 continue
             cat = category(h, g)
             result.articles[msgid] = Seen(d.astimezone(timezone.utc).date(), g.group_id, cat,
+                                          reply=bool(h.get("references")),
                                           author=h.get("author-key", ""),
                                           network=h.get("origin-network", "").lower()[:32],
                                           part=system_part(h, g) if cat == SYSTEM else "")
         for subject in r.subjects.get(NAMES_GROUP, []):
             if subject.startswith("name "):
                 result.names.add(subject[5:].strip().lower())
+
+    # The network's own lists (network.py): releases, nodes, entrances, gateways,
+    # hierarchies, canaries, and who is a bot or a demo person.
+    allowed = {PROJECT_KEY}
+    for g in (network.ENTRANCES_GROUP, network.HIERARCHIES_GROUP):
+        allowed |= result.groups.get(g, GroupInfo(g)).starters
+    rel = network.releases(fetched)
+    result.network = {
+        "releases": rel,
+        "node_list": network.nodes(
+            [known[a] for a in sorted(set(addresses) | ({n.address for n in listed[1]}
+                                                       if listed else set())) if a in known],
+            builtin_list()[1], [r.info for r in readings],
+            rel.get("stable", {}).get("version")),
+        "entrances": network.entrances(fetched, allowed, check=check_entrances),
+        "gateway_directory": network.gateway_directory(fetched, started),
+        "hierarchies": network.hierarchies(fetched, allowed),
+        "canary": network.canary([r.subjects.get(CANARY_GROUP, []) for r in readings],
+                                 started.date()),
+    }
+    result.bots = network.bot_keys([a for a in fetched if a.group.startswith("profile@")])
+    result.demo = network.demo_keys(result.articles.values())
     return result
 
 
@@ -339,7 +382,7 @@ async def run(args) -> dict:
         await tor.start(timeout=240)
         socks = tor.socks_port
     try:
-        result = await crawl(args.node or None, socks)
+        result = await crawl(args.node or None, socks, check_entrances=not args.no_probe)
     finally:
         if tor:
             await tor.stop()
@@ -358,6 +401,8 @@ def main() -> None:
     p.add_argument("--out", default="docs/data/stats.json", help="the stats file to update")
     p.add_argument("--socks-port", type=int, help="use a Tor that is already running")
     p.add_argument("--node", action="append", help="a node address (default: the known nodes)")
+    p.add_argument("--no-probe", action="store_true",
+                   help="do not check whether the listed https entrances answer")
     p.add_argument("-v", "--verbose", action="store_true")
     args = p.parse_args()
     logging.basicConfig(level=logging.INFO if args.verbose else logging.WARNING,

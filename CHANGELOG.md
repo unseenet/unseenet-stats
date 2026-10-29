@@ -26,6 +26,17 @@ For unseenet 0.6 (`unseenet>=0.6,<0.7`): release once the nodes run 0.6.
 - Messages per day leave out gateways unless asked: one gateway backfill brought
   in over 4,000 messages on one day and flattened everything else.
 
+- Released versions, read from the network: the newest stable and development
+  release signed in `unseenet.releases`, and how many nodes run the newest stable (#12).
+- Nodes by name from the known-node list, the project's own and others', and
+  what the answering nodes carry, as totals from their NODEINFO (#13).
+- Web entrances from `unseenet.entrances`, with whether the https ones answer,
+  and the gateways announced in `unseenet.gateways` (#14).
+- The network's lists: hierarchies by policy, names, and whether yesterday's
+  canaries reached every node (#15).
+- Spam reports and labels with their number of issuers, and active keys without
+  bots (their profile says so) and the demo's people (#16).
+
 ### Changed
 
 - Workflows use `actions/checkout@v5` and `actions/setup-python@v6`.

@@ -42,6 +42,15 @@ much of the traffic is the project testing itself.</p>
 
 <div class="st-cards" id="st-cards" aria-live="polite"></div>
 
+## Released { #released }
+
+<div class="st-panel">
+  <p class="st-panel__note">The newest releases signed in the network itself, in
+  <code>unseenet.releases</code> (UN-RFC 0043) - where portable and bootable clients look for
+  updates. Stable releases are signed with the project key, development builds with a release key.</p>
+  <div class="st-minis" id="st-releases"></div>
+</div>
+
 ## Messages per day { #per-day }
 
 <div class="st-panel">
@@ -85,6 +94,9 @@ much of the traffic is the project testing itself.</p>
   so this is the number of <strong>keys that wrote something in the open</strong> - posts,
   chats, comments, feed entries, pages and edits, not reactions alone - not the number of people.</p>
   <div class="st-minis" id="st-keys"></div>
+  <p class="st-panel__note">Bots say so in their profile (UN-RFC 0030), and the demo's people
+  start the threads in <code>unseenet.demo.*</code>; without both, the number is closer to people
+  actually using the network.</p>
   <h3 class="st-h">Keys that wrote something, per day</h3>
   <div id="st-keys-daily" class="st-chart st-chart--small"></div>
 </div>
@@ -108,15 +120,44 @@ much of the traffic is the project testing itself.</p>
   a busy network. A gateway signs with its own key, so the people behind the imported
   messages are not counted as keys.</p>
   <div id="st-gateways"></div>
+  <h3 class="st-h">Gateways in the directory</h3>
+  <p class="st-panel__note">Gateways announce themselves in <code>unseenet.gateways</code>
+  (UN-RFC 0038): what they bridge, and in which direction.</p>
+  <div id="st-gw-dir"></div>
 </div>
 
 ## Nodes { #nodes }
 
 <div class="st-panel">
   <div class="st-minis" id="st-nodes"></div>
-  <p class="st-panel__note">Only the total is shown. A history of when each node was
-  reachable would help anyone trying to find where an onion service runs, by matching
-  its ups and downs with power cuts or network outages.</p>
+  <h3 class="st-h">Listed nodes</h3>
+  <p class="st-panel__note">The network is only free when others than the project run nodes.
+  The names come from the known-node list (UN-RFC 0010); the project's own are marked.</p>
+  <ul class="st-names" id="st-node-names"></ul>
+  <h3 class="st-h">What the answering nodes carry</h3>
+  <div class="st-minis" id="st-policies"></div>
+  <p class="st-panel__note">Only totals. Which node answered is not shown: a daily record of
+  that would help anyone trying to find where an onion service runs, by matching its ups and
+  downs with power cuts or network outages.</p>
+</div>
+
+## Web entrances { #entrances }
+
+<div class="st-panel">
+  <p class="st-panel__note">Entrances let an ordinary browser into the network (UN-RFC 0043).
+  They are on the open web, so a visitor is not anonymous there - and they can be checked
+  like any website. Listed in <code>unseenet.entrances</code>.</p>
+  <div id="st-entrances"></div>
+</div>
+
+## The network's lists { #lists }
+
+<div class="st-panel">
+  <div class="st-minis" id="st-lists"></div>
+  <p class="st-panel__note">Hierarchies are the top-level names like <code>alt.*</code> and
+  <code>dk.*</code> (UN-RFC 0018). Every node posts a canary each day (UN-RFC 0021); when every
+  node has every canary, the nodes form one network rather than islands. Spam reports and labels
+  are published by issuers anyone may follow or ignore (UN-RFC 0045, 0053) - nothing is removed.</p>
 </div>
 
 ## What is counted, and what is not { #what-is-counted }

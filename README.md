@@ -36,7 +36,10 @@ any reader of the network can see.
   posts, chats, comments and feed entries in the open - not from closed groups,
   private messages or gateways.
 - **Each node's uptime.** Only how many nodes answered. A public history of when
-  one onion service was up would help anyone trying to locate it.
+  one onion service was up would help anyone trying to locate it. Node *names*
+  are shown, as the known-node list publishes them, with which are the
+  project's own - never which of them answered.
+- **Operators.** Gateways and entrances are shown by name, not by who runs them.
 
 The crawler keeps no state between runs except the published file. Nodes keep
 articles for a while (90 days by default), so each run counts the recent days
@@ -67,6 +70,13 @@ them by name and does not fetch their manifests. It never posts and never decryp
 anything. It is built on the Unseenet core, like
 [unseenet-bots](https://github.com/unseenet/unseenet-bots), and is also an
 example of a program that reads the network.
+
+It also reads the network's own lists, all signed, all in the open (`network.py`):
+the newest signed releases in `unseenet.releases` (not GitHub), the known-node
+list and the nodes' public `NODEINFO` (totals only), the web entrances in
+`unseenet.entrances` (the https ones are checked for an answer, like any website),
+the gateway directory `unseenet.gateways`, the hierarchy list, yesterday's
+canaries (UN-RFC 0021), and public profiles to tell bots (UN-RFC 0030) from people.
 
 Each article is counted once (by `Message-ID`, across nodes) as one of:
 
