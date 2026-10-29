@@ -21,6 +21,7 @@ import json
 import logging
 import sys
 import tempfile
+from collections import Counter
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -288,8 +289,9 @@ async def crawl(addresses: list[str] | None, socks_port: int | None,
             for msgid, h in r.headers.items():
                 g = h["newsgroups"]
                 manifest = h.get("control", "").split()[:1] == ["manifest"]
-                # Manifests, except key-bound ones - but profiles, to see who is a bot (#16)
-                if manifest and (not is_key_bound(g) or g.startswith("profile@")):
+                # Manifests, except key-bound ones - but profiles, to see who is a bot (#16),
+                # and spam-report issuers' and labellers', to list them
+                if manifest and (not is_key_bound(g) or g.startswith(("profile@", "reports@", "labels@"))):
                     want(msgid, r.address)
             for g, n in network.FETCH_NEWEST.items():
                 ids = sorted(r.groups.get(g, []), key=lambda m: _date(r.headers[m].get("date", ""))
@@ -352,6 +354,27 @@ async def crawl(addresses: list[str] | None, socks_port: int | None,
     allowed = {PROJECT_KEY}
     for g in (network.ENTRANCES_GROUP, network.HIERARCHIES_GROUP):
         allowed |= result.groups.get(g, GroupInfo(g)).starters
+    # The governed hierarchies' own lists, to see which issuers they name.
+    lists = network.governed(fetched, allowed)
+    if lists:
+        wanted_lists = {g for g, _ in lists.values()}
+        extra: dict[str, list[str]] = {}
+        for r in readings:
+            for g in wanted_lists:
+                ids = sorted(r.groups.get(g, []), key=lambda m: _date(r.headers[m].get("date", ""))
+                             or datetime.min.replace(tzinfo=timezone.utc))
+                for msgid in ids[-6:]:
+                    if msgid not in where:
+                        where[msgid] = r.address
+                        extra.setdefault(r.address, []).append(msgid)
+        for addr, ids in extra.items():
+            try:
+                fetched.extend(await asyncio.wait_for(fetch_articles(addr, socks_port, ids),
+                                                      NODE_TIMEOUT))
+            except Exception as exc:  # noqa: BLE001
+                log.warning("could not fetch hierarchy lists from %s: %s", addr[:16], exc)
+    published = Counter(a.group_id for a in result.articles.values()
+                        if a.group_id.startswith(("reports@", "labels@")) and a.part == "reports")
     rel = network.releases(fetched)
     result.network = {
         "releases": rel,
@@ -363,6 +386,11 @@ async def crawl(addresses: list[str] | None, socks_port: int | None,
         "entrances": network.entrances(fetched, allowed, check=check_entrances),
         "gateway_directory": network.gateway_directory(fetched, started),
         "hierarchies": network.hierarchies(fetched, allowed),
+        "issuers": network.issuers(
+            [a for a in fetched if a.group.startswith(("reports@", "labels@"))
+             and a.control and a.control[0] == "manifest"],
+            published, [r.info for r in readings], network.recommended(
+                fetched, lists, lambda g: result.groups.get(g, GroupInfo(g)).starters)),
         "canary": network.canary([r.subjects.get(CANARY_GROUP, []) for r in readings],
                                  started.date()),
     }

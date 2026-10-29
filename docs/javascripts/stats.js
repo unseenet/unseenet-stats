@@ -361,6 +361,42 @@
       card(lists, fmt(mo.reports), "spam reports and labels", "on the nodes now");
       card(lists, fmt(mo.report_issuers + mo.label_issuers), "issuers", "that anyone may choose to follow");
     }
+
+    var ib = byId("st-issuers");
+    ib.textContent = "";
+    var iss = d.issuers || [];
+    if (!iss.length) {
+      ib.appendChild(el("p", { "class": "st-empty" }, "No issuers yet."));
+    } else {
+      var it = el("table", { "class": "st-table st-table--wide" });
+      var ih = el("tr");
+      ["Issuer", "Made by", "Published", "Nodes following", "Default in"].forEach(function (x) {
+        ih.appendChild(el("th", { scope: "col" }, x));
+      });
+      it.appendChild(el("thead")).appendChild(ih);
+      var ibody = el("tbody");
+      iss.forEach(function (x) {
+        var tr = el("tr");
+        var th = el("th", { scope: "row" });
+        var det = el("details", { "class": "st-policy" });
+        var sum = el("summary");
+        sum.appendChild(el("span", {}, x.title || (x.kind === "labels" ? "Labels" : "Reports")));
+        sum.appendChild(el("code", { "class": "st-fp" }, x.kind + "@" + x.fingerprint));
+        sum.appendChild(el("span", { "class": "st-more" }, "What it says it does"));
+        det.appendChild(sum);
+        det.appendChild(el("p", {}, x.policy || "No policy given."));
+        th.appendChild(det);
+        tr.appendChild(th);
+        tr.appendChild(el("td", {}, x.automatic ? "a program" : "people"));
+        var unit = x.kind === "labels" ? " label" : " report";
+        tr.appendChild(el("td", {}, fmt(x.published) + unit + (x.published === 1 ? "" : "s")));
+        tr.appendChild(el("td", {}, x.nodes_following + " / " + d.nodes.reached));
+        tr.appendChild(el("td", {}, (x.recommended_for || []).join(", ") || "-"));
+        ibody.appendChild(tr);
+      });
+      it.appendChild(ibody);
+      ib.appendChild(it);
+    }
   }
 
   function start() {

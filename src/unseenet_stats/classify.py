@@ -124,6 +124,8 @@ def category(h: dict[str, str], group: GroupInfo) -> str:
 
 def system_part(h: dict[str, str], group: GroupInfo) -> str:
     """What one system article is, for the breakdown of SYSTEM_PARTS."""
+    if group.key_bound in ("reports", "labels") and h.get("control"):
+        return "control"                     # an issuer's manifest is not a report
     if group.key_bound in _PART:
         return _PART[group.key_bound]
     if h.get("control"):

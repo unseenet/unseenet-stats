@@ -17,9 +17,9 @@ from datetime import datetime, timedelta, timezone
 
 from unseenet.core import crypto, gateways
 from unseenet.core.article import Article, ArticleError, parse_date
-from unseenet.core.groups import Manifest
+from unseenet.core.groups import Manifest, split_group_id
 from unseenet.core.profiles import profile_from_manifest
-from unseenet.hierarchies import HIERARCHIES_GROUP, parse_root_list
+from unseenet.hierarchies import HIERARCHIES_GROUP, parse_hierarchy_list, parse_root_list
 from unseenet.known_nodes import (CANARY_GROUP, ENTRANCES_GROUP, NODES_GROUP, PROJECT_KEY,
                                   RELEASES_GROUP, parse_entrance_list, parse_node_list)
 from unseenet.update import UpdateError, check_signature, parse_release_post
@@ -220,3 +220,66 @@ def demo_keys(seen_articles) -> set[str]:
     are visitors, not the demo)."""
     return {a.author for a in seen_articles
             if a.group_id.startswith(DEMO_HIERARCHY) and a.author and not a.reply}
+
+
+# ------------------------------------------------- spam reports and labels
+
+def governed(arts: list[Article], allowed: set[str]) -> dict[str, tuple[str, str]]:
+    """{hierarchy: (its list's Group ID, its maintainer's key)} for the governed
+    hierarchies of the newest root list (UN-RFC 0018)."""
+    found = newest_valid(arts, HIERARCHIES_GROUP, allowed, parse_root_list)
+    if not found:
+        return {}
+    return {name: (h.list, h.maintainer) for name, h in found[1][1].items()
+            if h.policy == "governed" and h.list and h.maintainer}
+
+
+def recommended(arts: list[Article], lists: dict[str, tuple[str, str]],
+                posters=lambda group: set()) -> dict[str, list[str]]:
+    """{issuer key: [hierarchies whose list names it]} - the issuers a hierarchy's
+    maintainer names are followed there by default (UN-RFC 0045 7.1, 0053 5). The
+    list is posted by the maintainer or a poster in its group's manifest."""
+    out: dict[str, list[str]] = {}
+    for name, (group, maintainer) in sorted(lists.items()):
+        found = newest_valid(arts, group, {maintainer} | set(posters(group)),
+                             lambda text, name=name: parse_hierarchy_list(text, name))
+        if not found:
+            continue
+        hl = found[1]
+        for key in (*hl.report_issuers, *hl.labellers):
+            out.setdefault(key, []).append(name + ".*")
+    return out
+
+
+def issuers(manifests: list[Article], counts: dict[str, int], infos: list[dict],
+            recommend: dict[str, list[str]]) -> list[dict]:
+    """The spam-report issuers (reports@, UN-RFC 0045) and labellers (labels@, 0053)
+    in the network, from their signed manifests: what they say they do, whether a
+    program does it, how much they have published, how many of the answering nodes
+    follow them, and which hierarchies name them. The key only as its fingerprint,
+    and no contact - a reader decides by the policy, and reaches them in the network."""
+    newest: dict[str, Manifest] = {}
+    for art in manifests:
+        try:
+            m = Manifest.from_article(art, stored=True)
+        except ArticleError:
+            continue
+        if art.group not in newest or m.supersedes(newest[art.group]):
+            newest[art.group] = m
+    followed = Counter(k for i in infos for k in ((i.get("policy") or {}).get("report_issuers") or []))
+    out = []
+    for gid, m in sorted(newest.items()):
+        name, fp = split_group_id(gid)
+        key = crypto.key_to_text(m.owner)
+        raw = m.raw
+        out.append({
+            "kind": "labels" if name == "labels" else "reports",
+            "title": str(raw.get("title", ""))[:80],
+            "automatic": raw.get("automatic") is True,
+            "policy": str(raw.get("policy", ""))[:400],
+            "fingerprint": fp,
+            "published": counts.get(gid, 0),
+            "nodes_following": followed.get(key, 0),
+            "recommended_for": recommend.get(key, []),
+        })
+    return out

@@ -158,6 +158,11 @@ much of the traffic is the project testing itself.</p>
   <code>dk.*</code> (UN-RFC 0018). Every node posts a canary each day (UN-RFC 0021); when every
   node has every canary, the nodes form one network rather than islands. Spam reports and labels
   are published by issuers anyone may follow or ignore (UN-RFC 0045, 0053) - nothing is removed.</p>
+  <h3 class="st-h">Spam-report issuers and labellers</h3>
+  <p class="st-panel__note">Each says in its signed settings what it reports and whether a
+  program or people do it. Readers - and nodes - choose whom to follow; a hierarchy's maintainer
+  may name issuers that clients follow there by default. Shown by the fingerprint of their key.</p>
+  <div id="st-issuers"></div>
 </div>
 
 ## What is counted, and what is not { #what-is-counted }
