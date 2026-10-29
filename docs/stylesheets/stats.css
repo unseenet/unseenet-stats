@@ -210,3 +210,14 @@
 
 .st-check { white-space: nowrap; cursor: pointer; }
 .st-check input { vertical-align: middle; margin: 0 .25em 0 .4em; accent-color: var(--un-green, #16a974); }
+
+.md-typeset ul.st-names { list-style: none; padding: 0; margin: .4em 0 1em; display: flex; flex-wrap: wrap; gap: .5em; }
+.md-typeset ul.st-names li { margin: 0; list-style: none; padding: .3em .7em; border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 999px; font-family: var(--md-code-font-family, monospace); font-size: .8rem; }
+.st-tag { margin-left: .5em; padding: 0 .45em; border-radius: 999px; font-size: .7rem;
+  background: var(--md-default-fg-color--lightest); font-family: var(--md-text-font-family, sans-serif); }
+
+.md-typeset table.st-table { display: table; border-collapse: collapse; font-size: .8rem; margin: .4em 0 0; }
+.md-typeset table.st-table th, .md-typeset table.st-table td { padding: .35em 1.2em .35em 0; text-align: left;
+  border-bottom: 1px solid var(--md-default-fg-color--lightest); font-family: var(--md-text-font-family, sans-serif); }
+.md-typeset table.st-table thead th { font-weight: 600; color: var(--md-default-fg-color--light); }

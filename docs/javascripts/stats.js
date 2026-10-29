@@ -215,6 +215,9 @@
     card(keys, fmt(d.keys.active_7), "active, 7 days");
     card(keys, fmt(d.keys.active_30), "active, 30 days");
     card(keys, fmt(d.keys.active_90), "active, 90 days");
+    if (d.keys.people_30 !== undefined) {
+      card(keys, fmt(d.keys.people_30), "without bots and demo", "active, 30 days (" + fmt(d.keys.bots) + " bots, " + fmt(d.keys.demo) + " demo people)");
+    }
     card(keys, fmt(d.keys.names), "names", "claimed, like @lorensen");
     card(keys, fmt(d.keys.profiles), "profiles");
     card(keys, fmt(d.keys.inboxes), "inboxes", "can receive private messages");
@@ -251,11 +254,112 @@
 
     var nodes = byId("st-nodes");
     nodes.textContent = "";
+    var nl = d.node_list || null;
     card(nodes, fmt(d.nodes.listed), "listed nodes", d.nodes.list_updated ? "list of " + d.nodes.list_updated : "");
+    if (nl) {
+      card(nodes, fmt(nl.others), "run by others", nl.others ? "not by the project" : "none yet - run one?");
+      card(nodes, fmt(nl.project), "run by the project");
+    }
     card(nodes, fmt(d.nodes.reached), "answered today");
     entriesOf(d.nodes.versions).forEach(function (e) {
       card(nodes, fmt(e[1]), e[0].replace(/^unseenet /, "version "), "nodes running it");
     });
+
+    var names = byId("st-node-names");
+    names.textContent = "";
+    ((nl && nl.list) || []).forEach(function (n) {
+      var li = el("li", { "class": n.project ? "st-names__own" : "" }, n.name);
+      if (n.project) { li.appendChild(el("span", { "class": "st-tag" }, "project")); }
+      names.appendChild(li);
+    });
+    var pol = byId("st-policies");
+    pol.textContent = "";
+    if (nl && nl.policies) {
+      var p = nl.policies, r = d.nodes.reached;
+      card(pol, p.files + " / " + r, "carry files", "pictures and documents (UN-RFC 0027)");
+      card(pol, p.encrypted_files + " / " + r, "carry encrypted files", "for closed groups and private posts");
+      card(pol, p.sites + " / " + r, "carry sites");
+      card(pol, p.profiles + " / " + r, "carry profiles");
+      if (p.retention_days && p.retention_days.length) {
+        card(pol, p.retention_days[0] === p.retention_days[1] ? String(p.retention_days[0])
+             : p.retention_days[0] + "-" + p.retention_days[1], "days kept", "before articles expire");
+      }
+    }
+
+    var rel = byId("st-releases");
+    rel.textContent = "";
+    var rs = d.releases || {};
+    if (rs.stable) { card(rel, rs.stable.version, "stable", "signed " + rs.stable.date + " with the " + rs.stable.signed_by); }
+    if (rs.dev) { card(rel, rs.dev.version, "development build", rs.dev.date); }
+    if (rs.stable && nl) { card(rel, nl.on_stable + " / " + d.nodes.reached, "nodes on " + rs.stable.version, "the newest stable"); }
+    if (!rs.stable && !rs.dev) { rel.appendChild(el("p", { "class": "st-empty" }, "No signed releases found.")); }
+
+    var dir = byId("st-gw-dir");
+    dir.textContent = "";
+    var gws = d.gateway_directory || [];
+    if (!gws.length) {
+      dir.appendChild(el("p", { "class": "st-empty" }, "No gateway has announced itself yet."));
+    } else {
+      var t = el("table", { "class": "st-table" });
+      var h = el("tr");
+      ["Gateway", "Networks", "Groups"].forEach(function (x) { h.appendChild(el("th", { scope: "col" }, x)); });
+      t.appendChild(el("thead")).appendChild(h);
+      var tb = el("tbody");
+      gws.forEach(function (g) {
+        var tr = el("tr");
+        tr.appendChild(el("th", { scope: "row" }, g.name));
+        tr.appendChild(el("td", {}, g.networks.map(function (n) {
+          var dirn = n["import"] && n["export"] ? "both ways" : n["import"] ? "in" : "out";
+          return n.network.charAt(0).toUpperCase() + n.network.slice(1) + " (" + dirn + ")";
+        }).join(", ")));
+        tr.appendChild(el("td", {}, fmt(g.groups)));
+        tb.appendChild(tr);
+      });
+      t.appendChild(tb);
+      dir.appendChild(t);
+    }
+
+    var en = byId("st-entrances");
+    en.textContent = "";
+    var es = d.entrances || { list: [] };
+    if (!es.list.length) {
+      en.appendChild(el("p", { "class": "st-empty" }, "No entrances are listed yet."));
+    } else {
+      var et = el("table", { "class": "st-table" });
+      var eh = el("tr");
+      ["Entrance", "On the web", "Over Tor", "Answers now"].forEach(function (x) { eh.appendChild(el("th", { scope: "col" }, x)); });
+      et.appendChild(el("thead")).appendChild(eh);
+      var eb = el("tbody");
+      es.list.forEach(function (e) {
+        var tr = el("tr");
+        tr.appendChild(el("th", { scope: "row" }, e.name));
+        var web = el("td");
+        if (e.url) { web.appendChild(el("a", { href: e.url, rel: "nofollow noopener" }, e.url.replace(/^https:\/\//, "").replace(/\/$/, ""))); }
+        else { web.textContent = "-"; }
+        tr.appendChild(web);
+        tr.appendChild(el("td", {}, e.onion ? "yes" : "-"));
+        tr.appendChild(el("td", {}, e.url ? (e.answers ? "yes" : "no") : "not checked"));
+        eb.appendChild(tr);
+      });
+      et.appendChild(eb);
+      en.appendChild(et);
+    }
+
+    var lists = byId("st-lists");
+    lists.textContent = "";
+    var hi = d.hierarchies || {};
+    if (hi.total) {
+      var bp = hi.by_policy || {};
+      card(lists, fmt(hi.total), "hierarchies", (bp.free || 0) + " free, " + (bp.governed || 0) + " governed, " + (bp.reserved || 0) + " reserved");
+    }
+    card(lists, fmt(d.keys.names), "names", "claimed, like @lorensen");
+    var ca = d.canary;
+    if (ca) { card(lists, ca.everywhere + " / " + ca.posted, "canaries everywhere", "of " + ca.date + ": reached every node"); }
+    var mo = d.moderation;
+    if (mo) {
+      card(lists, fmt(mo.reports), "spam reports and labels", "on the nodes now");
+      card(lists, fmt(mo.report_issuers + mo.label_issuers), "issuers", "that anyone may choose to follow");
+    }
   }
 
   function start() {
