@@ -74,11 +74,14 @@ Each article is counted once (by `Message-ID`, across nodes) as one of:
 |---|---|
 | post, chat | `Message-Kind` (UN-RFC 0028); no header means post |
 | comment | a reply in a channel by a key that may not start threads there (UN-RFC 0030) |
-| feed | an entry in a group with `"view": "feed"` (UN-RFC 0034, milestone 0.5.0) |
+| feed | an entry in a group with `"view": "feed"`, someone's own `feed@` included (UN-RFC 0034) |
+| page | a page in a group with `"view": "pages"`, someone's own `site@` included (UN-RFC 0035) |
+| reaction | `Message-Kind: reaction` (UN-RFC 0048); does not make a key active |
+| edit | a new version naming earlier ones in `Supersedes` (UN-RFC 0042) |
 | closed | encrypted, in a closed group: the kind is inside the ciphertext |
 | private | an inbox message, sealed for its receiver |
 | imported | brought in by a gateway: has `Origin-Network` (UN-RFC 0023) |
-| system | control articles, data groups, profiles, avatars, names |
+| system | control articles, data groups, and key-bound groups other than `feed@` and `site@`: ripening, profiles, pictures, names, state, spam reports and labels - shown split into these parts |
 
 When a new kind of message comes, add it in
 [`classify.py`](src/unseenet_stats/classify.py) and the page's `KINDS` in
@@ -91,7 +94,7 @@ principles as [unseenet](https://github.com/unseenet/unseenet/blob/main/docs/dev
 tags `vX.Y.Z` on `main`, the changes in [CHANGELOG.md](CHANGELOG.md), and a
 GitHub release for each tag. This is one of the project's own services, so it
 is not on PyPI. Each release names the minor version of unseenet it works with
-(`unseenet>=0.5,<0.6`).
+(`unseenet>=0.6,<0.7`).
 
 To release: move the entries under `## [Unreleased]` in `CHANGELOG.md` to a
 new `## [X.Y.Z] - YYYY-MM-DD` section, set `__version__` in

@@ -32,13 +32,13 @@ from unseenet.names import NAMES_GROUP
 from unseenet.nntp import Client, read_block, strip_reader_headers
 
 from .aggregate import Crawl, Seen, build
-from .classify import GroupInfo, category
+from .classify import SYSTEM, GroupInfo, category, system_part
 
 log = logging.getLogger("unseenet-stats")
 
 # The headers asked for with HDR, for every article of every group.
 FIELDS = ("Message-ID", "Date", "Author-Key", "Message-Kind", "Control", "Encrypted",
-          "Origin-Network", "References")
+          "Origin-Network", "References", "Supersedes")
 MULTILINE = {100, 101, 215, 220, 221, 222, 224, 225, 230, 231}
 CHUNK = 20                       # groups per pipelined batch
 HEAD_CHUNK = 200                 # articles per pipelined batch of HEAD
@@ -320,7 +320,8 @@ async def crawl(addresses: list[str] | None, socks_port: int | None) -> Crawl:
             cat = category(h, g)
             result.articles[msgid] = Seen(d.astimezone(timezone.utc).date(), g.group_id, cat,
                                           author=h.get("author-key", ""),
-                                          network=h.get("origin-network", "").lower()[:32])
+                                          network=h.get("origin-network", "").lower()[:32],
+                                          part=system_part(h, g) if cat == SYSTEM else "")
         for subject in r.subjects.get(NAMES_GROUP, []):
             if subject.startswith("name "):
                 result.names.add(subject[5:].strip().lower())

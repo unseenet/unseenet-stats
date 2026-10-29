@@ -6,6 +6,9 @@
   --k-chat: #5ec2c9;
   --k-comment: #8fd9b6;
   --k-feed: #e0a640;
+  --k-page: #c98b4a;
+  --k-reaction: #f2c94c;
+  --k-edit: #b8c96a;
   --k-closed: #5b8def;
   --k-private: #8b7be8;
   --k-imported: #d9739e;
@@ -23,6 +26,9 @@
 .k-chat { fill: var(--k-chat); background: var(--k-chat); }
 .k-comment { fill: var(--k-comment); background: var(--k-comment); }
 .k-feed { fill: var(--k-feed); background: var(--k-feed); }
+.k-page { fill: var(--k-page); background: var(--k-page); }
+.k-reaction { fill: var(--k-reaction); background: var(--k-reaction); }
+.k-edit { fill: var(--k-edit); background: var(--k-edit); }
 .k-closed { fill: var(--k-closed); background: var(--k-closed); }
 .k-private { fill: var(--k-private); background: var(--k-private); }
 .k-imported { fill: var(--k-imported); background: var(--k-imported); }
@@ -201,3 +207,6 @@
 .md-typeset table.st-table { font-size: 0.72rem; display: table; }
 .md-typeset table.st-table td { font-family: var(--un-mono); }
 .st-rules { max-width: 46rem; }
+
+.st-check { white-space: nowrap; cursor: pointer; }
+.st-check input { vertical-align: middle; margin: 0 .25em 0 .4em; accent-color: var(--un-green, #16a974); }

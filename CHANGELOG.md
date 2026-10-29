@@ -8,6 +8,28 @@ The daily counts themselves are data commits, not changes listed here.
 
 ## [Unreleased]
 
+For unseenet 0.6 (`unseenet>=0.6,<0.7`): release once the nodes run 0.6.
+
+### Fixed
+
+- Entries, comments and pages in people's own feeds and sites (`feed@`, `site@`)
+  were counted as housekeeping; they are now counted by their view (#11).
+- Reactions, pages and edits were counted as posts. They are now categories of
+  their own; a reaction alone does not make a key active (#11).
+- Days the nodes still carry are counted again under the new rules, instead of
+  being added to the old counts.
+
+### Added
+
+- Housekeeping split into its parts (key ripening, profiles, state, spam reports
+  and labels, control, lists), and the number of personal feeds and sites (#11).
+- Messages per day leave out gateways unless asked: one gateway backfill brought
+  in over 4,000 messages on one day and flattened everything else.
+
+### Changed
+
+- Workflows use `actions/checkout@v5` and `actions/setup-python@v6`.
+
 ## [0.2.0] - 2026-10-25
 
 For unseenet 0.5 (`unseenet>=0.5,<0.6`): the crawler reads 0.5 nodes.
