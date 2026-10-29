@@ -1,11 +1,14 @@
 {
- "v": 1,
- "generated": "2026-10-28T11:19:14Z",
+ "v": 2,
+ "generated": "2026-10-29T10:45:25Z",
  "categories": [
   "post",
   "chat",
   "comment",
   "feed",
+  "page",
+  "reaction",
+  "edit",
   "closed",
   "private",
   "imported",
@@ -15,67 +18,183 @@
   "listed": 4,
   "reached": 4,
   "versions": {
-   "unseenet 0.5.0": 4
+   "unseenet 0.6.1": 4
   },
   "list_updated": "2026-10-17"
  },
  "groups": {
-  "total": 34,
+  "total": 54,
   "by_type": {
-   "moderated": 12,
+   "moderated": 32,
    "open": 11,
    "channel": 10,
    "closed": 1
   },
   "by_view": {
-   "threads": 17,
+   "threads": 36,
    "feed": 9,
-   "chat": 7,
+   "chat": 8,
    "pages": 1
   },
   "by_hierarchy": {
-   "test": 12,
+   "test": 32,
    "unseenet": 12,
    "alt": 8,
    "aaatestgroup": 1,
    "matrix": 1
+  },
+  "personal": {
+   "feeds": 7,
+   "sites": 6
   }
  },
  "articles": {
   "on_nodes": {
-   "system": 683,
+   "system": 686,
    "closed": 2,
-   "feed": 113,
-   "comment": 3,
-   "chat": 52,
-   "post": 80,
-   "private": 66,
-   "imported": 38
+   "feed": 170,
+   "reaction": 5,
+   "comment": 8,
+   "chat": 53,
+   "post": 76,
+   "private": 69,
+   "imported": 4531,
+   "page": 21
+  },
+  "system_parts": {
+   "ripening": 132,
+   "profiles": 62,
+   "state": 36,
+   "reports": 15,
+   "control": 219,
+   "lists": 222
   },
   "counted_since_start": {
-   "system": 707,
-   "private": 66,
-   "post": 226,
-   "imported": 322,
-   "chat": 75,
-   "feed": 130,
-   "comment": 15,
+   "system": 686,
+   "private": 69,
+   "post": 76,
+   "imported": 4531,
+   "feed": 170,
+   "chat": 53,
+   "comment": 8,
+   "page": 21,
+   "reaction": 5,
    "closed": 2
   },
   "by_hierarchy": {
-   "alt": 156,
-   "unseenet": 83,
+   "alt": 167,
+   "unseenet": 86,
    "matrix": 5,
    "test": 4
   }
  },
  "keys": {
-  "active_7": 20,
-  "active_30": 38,
-  "active_90": 38,
+  "active_7": 19,
+  "active_30": 39,
+  "active_90": 39,
   "profiles": 20,
   "inboxes": 47,
-  "names": 5
+  "names": 5,
+  "people_30": 23,
+  "bots": 12,
+  "demo": 7
+ },
+ "moderation": {
+  "reports": 15,
+  "report_issuers": 3,
+  "label_issuers": 1
+ },
+ "releases": {
+  "dev": {
+   "version": "0.5.1.dev104",
+   "date": "2026-10-28",
+   "signed_by": "release key"
+  },
+  "stable": {
+   "version": "0.5.0",
+   "date": "2026-10-25",
+   "signed_by": "project key"
+  }
+ },
+ "node_list": {
+  "list": [
+   {
+    "name": "unseenet-node1",
+    "project": true
+   },
+   {
+    "name": "unseenet-node2",
+    "project": true
+   },
+   {
+    "name": "unseenet-node3",
+    "project": true
+   },
+   {
+    "name": "unseenet-node4",
+    "project": true
+   }
+  ],
+  "project": 4,
+  "others": 0,
+  "policies": {
+   "files": 4,
+   "encrypted_files": 4,
+   "sites": 4,
+   "profiles": 4,
+   "pictures": 4,
+   "follow_reports": 0,
+   "retention_days": [
+    90,
+    90
+   ]
+  },
+  "on_stable": 0
+ },
+ "entrances": {
+  "listed": 2,
+  "updated": "2026-10-21",
+  "list": [
+   {
+    "name": "unseenet-entrance-1",
+    "url": "https://129.151.209.26/",
+    "onion": true,
+    "answers": true
+   },
+   {
+    "name": "unseenet-entrance-test",
+    "url": "",
+    "onion": true
+   }
+  ],
+  "answering": 1
+ },
+ "gateway_directory": [
+  {
+   "name": "Unseenet project gateway",
+   "groups": 1,
+   "networks": [
+    {
+     "network": "matrix",
+     "import": true,
+     "export": true
+    }
+   ]
+  }
+ ],
+ "hierarchies": {
+  "total": 32,
+  "updated": "2026-10-24",
+  "by_policy": {
+   "reserved": 29,
+   "free": 2,
+   "governed": 1
+  }
+ },
+ "canary": {
+  "date": "2026-10-28",
+  "posted": 4,
+  "everywhere": 4
  },
  "gateways": {
   "matrix": {
@@ -87,6 +206,11 @@
    "articles": 34,
    "gateways": 1,
    "groups": 2
+  },
+  "usenet": {
+   "articles": 4493,
+   "gateways": 2,
+   "groups": 24
   }
  },
  "days": [
@@ -103,107 +227,106 @@
    "date": "2026-10-16",
    "categories": {
     "system": 39,
-    "private": 10,
-    "post": 8
+    "post": 8,
+    "private": 10
    },
    "keys": 4
   },
   {
    "date": "2026-10-17",
    "categories": {
-    "private": 8,
-    "system": 46,
-    "imported": 275,
-    "post": 47
+    "system": 30,
+    "post": 3,
+    "imported": 2,
+    "private": 8
    },
-   "keys": 5
+   "keys": 2
   },
   {
    "date": "2026-10-18",
    "categories": {
-    "system": 29,
-    "post": 29,
+    "system": 25,
+    "feed": 15,
     "chat": 14,
-    "private": 16,
-    "imported": 2,
-    "feed": 15
+    "post": 13,
+    "imported": 1,
+    "private": 16
    },
-   "keys": 15
+   "keys": 14
   },
   {
    "date": "2026-10-19",
    "categories": {
-    "post": 13,
-    "chat": 14,
-    "system": 32,
-    "imported": 14,
-    "private": 14,
-    "feed": 9
+    "feed": 9,
+    "chat": 10,
+    "system": 28,
+    "imported": 4,
+    "post": 4,
+    "private": 14
    },
-   "keys": 11
+   "keys": 10
   },
   {
    "date": "2026-10-20",
    "categories": {
-    "post": 17,
-    "system": 19,
+    "feed": 8,
     "chat": 2,
-    "feed": 8
+    "system": 19,
+    "post": 9
    },
    "keys": 14
   },
   {
    "date": "2026-10-21",
    "categories": {
-    "post": 11,
+    "feed": 9,
     "chat": 1,
     "system": 47,
-    "private": 1,
-    "feed": 9
+    "post": 2,
+    "private": 1
    },
    "keys": 7
   },
   {
    "date": "2026-10-22",
    "categories": {
-    "post": 22,
-    "system": 64,
+    "feed": 14,
     "chat": 9,
-    "private": 1,
-    "feed": 14
+    "post": 8,
+    "system": 64,
+    "private": 1
    },
    "keys": 10
   },
   {
    "date": "2026-10-23",
    "categories": {
-    "post": 33,
-    "system": 91,
-    "feed": 18
+    "feed": 29,
+    "post": 5,
+    "system": 79
    },
-   "keys": 16
+   "keys": 15
   },
   {
    "date": "2026-10-24",
    "categories": {
-    "post": 18,
-    "chat": 19,
-    "system": 115,
-    "feed": 21,
-    "comment": 11,
-    "imported": 25
+    "feed": 23,
+    "imported": 25,
+    "system": 93,
+    "comment": 2,
+    "page": 1
    },
-   "keys": 10
+   "keys": 9
   },
   {
    "date": "2026-10-25",
    "categories": {
-    "post": 16,
-    "comment": 1,
-    "system": 94,
     "feed": 9,
+    "system": 84,
     "imported": 6,
+    "post": 11,
     "chat": 5,
+    "page": 15,
     "private": 1
    },
    "keys": 9
@@ -211,10 +334,11 @@
   {
    "date": "2026-10-26",
    "categories": {
-    "feed": 10,
-    "comment": 2,
-    "system": 40,
+    "feed": 20,
+    "reaction": 2,
     "chat": 8,
+    "system": 27,
+    "comment": 2,
     "private": 6
    },
    "keys": 13
@@ -222,23 +346,40 @@
   {
    "date": "2026-10-27",
    "categories": {
-    "system": 77,
-    "feed": 15,
-    "chat": 3,
-    "post": 9,
-    "private": 7,
+    "system": 85,
     "closed": 2,
-    "comment": 1
+    "feed": 16,
+    "comment": 1,
+    "chat": 3,
+    "reaction": 1,
+    "post": 8,
+    "private": 7
    },
    "keys": 10
   },
   {
    "date": "2026-10-28",
    "categories": {
-    "feed": 2,
+    "feed": 15,
+    "reaction": 2,
+    "system": 52,
+    "imported": 4332,
+    "chat": 1,
+    "comment": 3,
+    "private": 3,
+    "page": 5
+   },
+   "keys": 7
+  },
+  {
+   "date": "2026-10-29",
+   "categories": {
+    "feed": 3,
+    "imported": 161,
+    "post": 2,
     "system": 10
    },
-   "keys": 2
+   "keys": 4
   }
  ]
 }
