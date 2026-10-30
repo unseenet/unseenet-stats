@@ -1,6 +1,6 @@
 {
  "v": 2,
- "generated": "2026-10-30T09:54:30Z",
+ "generated": "2026-10-30T10:04:17Z",
  "categories": [
   "post",
   "chat",
@@ -50,30 +50,30 @@
  },
  "articles": {
   "on_nodes": {
-   "system": 731,
+   "system": 734,
    "closed": 2,
    "feed": 181,
    "reaction": 6,
    "chat": 55,
    "post": 92,
    "private": 69,
-   "imported": 5184,
+   "imported": 5187,
    "comment": 7,
    "page": 21
   },
   "system_parts": {
-   "ripening": 122,
+   "ripening": 123,
    "profiles": 62,
    "state": 57,
-   "reports": 19,
+   "reports": 20,
    "control": 231,
-   "lists": 240
+   "lists": 241
   },
   "counted_since_start": {
-   "system": 750,
+   "system": 753,
    "private": 69,
    "post": 92,
-   "imported": 5204,
+   "imported": 5207,
    "feed": 184,
    "chat": 55,
    "comment": 8,
@@ -100,14 +100,14 @@
   "demo": 7
  },
  "moderation": {
-  "reports": 19,
+  "reports": 20,
   "report_issuers": 3,
   "label_issuers": 1
  },
  "releases": {
   "dev": {
-   "version": "0.5.1.dev104",
-   "date": "2026-10-29",
+   "version": "0.6.5.dev25",
+   "date": "2026-10-30",
    "signed_by": "release key"
   },
   "stable": {
@@ -198,7 +198,7 @@
    "automatic": true,
    "policy": "Automatic. Labels posts with profanity (swearing, oaths) and sexual words, from its own word lists in nine languages: whole words and phrases only, at least two in a post or one in a very short post; insults are not labelled. Describes, never sanctions. https://github.com/unseenet/unseenet-watchman",
    "fingerprint": "qsr3vivzigx6ynyk",
-   "published": 9,
+   "published": 10,
    "nodes_following": 0,
    "recommended_for": []
   },
@@ -252,7 +252,7 @@
    "groups": 2
   },
   "usenet": {
-   "articles": 5146,
+   "articles": 5149,
    "gateways": 2,
    "groups": 24
   }
@@ -431,9 +431,9 @@
    "date": "2026-10-30",
    "categories": {
     "feed": 7,
-    "imported": 121,
+    "imported": 124,
     "post": 4,
-    "system": 16
+    "system": 19
    },
    "keys": 6
   }
