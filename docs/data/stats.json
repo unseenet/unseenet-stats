@@ -1,6 +1,6 @@
 {
  "v": 2,
- "generated": "2026-10-30T10:04:17Z",
+ "generated": "2026-10-30T11:23:21Z",
  "categories": [
   "post",
   "chat",
@@ -23,22 +23,22 @@
   "list_updated": "2026-10-17"
  },
  "groups": {
-  "total": 54,
+  "total": 55,
   "by_type": {
    "moderated": 32,
+   "channel": 11,
    "open": 11,
-   "channel": 10,
    "closed": 1
   },
   "by_view": {
    "threads": 36,
    "feed": 9,
    "chat": 8,
-   "pages": 1
+   "pages": 2
   },
   "by_hierarchy": {
    "test": 32,
-   "unseenet": 12,
+   "unseenet": 13,
    "alt": 8,
    "aaatestgroup": 1,
    "matrix": 1
@@ -50,40 +50,40 @@
  },
  "articles": {
   "on_nodes": {
-   "system": 734,
+   "system": 766,
    "closed": 2,
-   "feed": 181,
+   "feed": 182,
    "reaction": 6,
    "chat": 55,
    "post": 92,
    "private": 69,
-   "imported": 5187,
+   "imported": 5258,
    "comment": 7,
-   "page": 21
+   "page": 31
   },
   "system_parts": {
    "ripening": 123,
    "profiles": 62,
-   "state": 57,
+   "state": 58,
    "reports": 20,
-   "control": 231,
-   "lists": 241
+   "control": 253,
+   "lists": 250
   },
   "counted_since_start": {
-   "system": 753,
+   "system": 788,
    "private": 69,
    "post": 92,
-   "imported": 5207,
-   "feed": 184,
+   "imported": 5278,
+   "feed": 185,
    "chat": 55,
    "comment": 8,
-   "page": 21,
+   "page": 31,
    "reaction": 6,
    "closed": 2
   },
   "by_hierarchy": {
-   "alt": 181,
-   "unseenet": 101,
+   "alt": 182,
+   "unseenet": 111,
    "matrix": 5,
    "test": 4
   }
@@ -252,7 +252,7 @@
    "groups": 2
   },
   "usenet": {
-   "articles": 5149,
+   "articles": 5220,
    "gateways": 2,
    "groups": 24
   }
@@ -430,10 +430,11 @@
   {
    "date": "2026-10-30",
    "categories": {
-    "feed": 7,
-    "imported": 124,
+    "feed": 8,
+    "imported": 195,
     "post": 4,
-    "system": 19
+    "system": 54,
+    "page": 10
    },
    "keys": 6
   }
