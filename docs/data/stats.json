@@ -1,6 +1,6 @@
 {
  "v": 2,
- "generated": "2026-10-29T11:35:56Z",
+ "generated": "2026-10-30T09:54:30Z",
  "categories": [
   "post",
   "chat",
@@ -50,70 +50,70 @@
  },
  "articles": {
   "on_nodes": {
-   "system": 694,
+   "system": 731,
    "closed": 2,
-   "feed": 169,
-   "reaction": 5,
-   "comment": 8,
-   "chat": 53,
-   "post": 76,
+   "feed": 181,
+   "reaction": 6,
+   "chat": 55,
+   "post": 92,
    "private": 69,
-   "imported": 4573,
+   "imported": 5184,
+   "comment": 7,
    "page": 21
   },
   "system_parts": {
-   "ripening": 133,
+   "ripening": 122,
    "profiles": 62,
-   "state": 37,
-   "reports": 9,
-   "control": 226,
-   "lists": 227
+   "state": 57,
+   "reports": 19,
+   "control": 231,
+   "lists": 240
   },
   "counted_since_start": {
-   "system": 694,
+   "system": 750,
    "private": 69,
-   "post": 76,
-   "imported": 4593,
-   "feed": 170,
-   "chat": 53,
+   "post": 92,
+   "imported": 5204,
+   "feed": 184,
+   "chat": 55,
    "comment": 8,
    "page": 21,
-   "reaction": 5,
+   "reaction": 6,
    "closed": 2
   },
   "by_hierarchy": {
-   "alt": 167,
-   "unseenet": 85,
+   "alt": 181,
+   "unseenet": 101,
    "matrix": 5,
    "test": 4
   }
  },
  "keys": {
-  "active_7": 19,
+  "active_7": 17,
   "active_30": 39,
   "active_90": 39,
   "profiles": 20,
-  "inboxes": 47,
+  "inboxes": 48,
   "names": 5,
   "people_30": 23,
   "bots": 12,
   "demo": 7
  },
  "moderation": {
-  "reports": 9,
+  "reports": 19,
   "report_issuers": 3,
   "label_issuers": 1
  },
  "releases": {
-  "stable": {
-   "version": "0.5.0",
-   "date": "2026-10-25",
-   "signed_by": "project key"
-  },
   "dev": {
    "version": "0.5.1.dev104",
-   "date": "2026-10-28",
+   "date": "2026-10-29",
    "signed_by": "release key"
+  },
+  "stable": {
+   "version": "0.6.4.post1",
+   "date": "2026-10-30",
+   "signed_by": "project key"
   }
  },
  "node_list": {
@@ -198,7 +198,7 @@
    "automatic": true,
    "policy": "Automatic. Labels posts with profanity (swearing, oaths) and sexual words, from its own word lists in nine languages: whole words and phrases only, at least two in a post or one in a very short post; insults are not labelled. Describes, never sanctions. https://github.com/unseenet/unseenet-watchman",
    "fingerprint": "qsr3vivzigx6ynyk",
-   "published": 1,
+   "published": 9,
    "nodes_following": 0,
    "recommended_for": []
   },
@@ -220,7 +220,7 @@
    "automatic": true,
    "policy": "Automatic. Reports posts that look like spam: the same text from many new keys, the same text from one key in many groups, or links to domains on URI blocklists for spam. A key only after repeated findings, for 30 days. https://github.com/unseenet/unseenet-watchman",
    "fingerprint": "rbct47jjhnp5peqb",
-   "published": 5,
+   "published": 7,
    "nodes_following": 4,
    "recommended_for": []
   },
@@ -236,7 +236,7 @@
   }
  ],
  "canary": {
-  "date": "2026-10-28",
+  "date": "2026-10-29",
   "posted": 4,
   "everywhere": 4
  },
@@ -252,7 +252,7 @@
    "groups": 2
   },
   "usenet": {
-   "articles": 4535,
+   "articles": 5146,
    "gateways": 2,
    "groups": 24
   }
@@ -418,12 +418,24 @@
   {
    "date": "2026-10-29",
    "categories": {
-    "feed": 3,
-    "imported": 223,
-    "post": 2,
-    "system": 18
+    "feed": 10,
+    "imported": 713,
+    "post": 14,
+    "system": 58,
+    "reaction": 1,
+    "chat": 2
    },
-   "keys": 4
+   "keys": 10
+  },
+  {
+   "date": "2026-10-30",
+   "categories": {
+    "feed": 7,
+    "imported": 121,
+    "post": 4,
+    "system": 16
+   },
+   "keys": 6
   }
  ]
 }
