@@ -1,6 +1,6 @@
 {
  "v": 2,
- "generated": "2026-10-31T10:54:35Z",
+ "generated": "2026-11-01T11:48:57Z",
  "categories": [
   "post",
   "chat",
@@ -36,10 +36,12 @@
    "pages": 2
   },
   "by_hierarchy": {
-   "test": 32,
+   "test": 33,
    "alt": 31,
    "dk": 16,
-   "unseenet": 13,
+   "unseenet": 6,
+   "demo": 5,
+   "docs": 1,
    "matrix": 1
   },
   "personal": {
@@ -49,71 +51,73 @@
  },
  "articles": {
   "on_nodes": {
-   "system": 949,
-   "feed": 656,
-   "reaction": 6,
-   "chat": 59,
-   "post": 127,
+   "system": 973,
+   "feed": 1029,
+   "reaction": 4,
+   "chat": 52,
+   "post": 103,
    "private": 70,
-   "imported": 6011,
-   "comment": 7,
    "page": 31,
+   "imported": 6778,
+   "comment": 6,
    "edit": 1
   },
   "system_parts": {
-   "ripening": 138,
-   "profiles": 115,
-   "state": 80,
-   "reports": 32,
-   "control": 323,
-   "lists": 261
+   "ripening": 118,
+   "profiles": 104,
+   "state": 104,
+   "reports": 43,
+   "control": 328,
+   "lists": 276
   },
   "counted_since_start": {
-   "system": 1013,
+   "system": 1094,
    "private": 70,
-   "post": 127,
-   "imported": 6031,
-   "feed": 659,
-   "chat": 59,
+   "post": 146,
+   "imported": 6823,
+   "feed": 1037,
+   "chat": 66,
    "comment": 8,
-   "page": 31,
+   "page": 46,
    "reaction": 6,
    "closed": 2,
    "edit": 1
   },
   "by_hierarchy": {
-   "dk": 325,
-   "alt": 323,
-   "unseenet": 152,
+   "dk": 633,
+   "alt": 387,
+   "unseenet": 83,
+   "demo": 27,
+   "docs": 10,
    "matrix": 5,
    "test": 4
   }
  },
  "keys": {
-  "active_7": 39,
-  "active_30": 60,
-  "active_90": 60,
+  "active_7": 38,
+  "active_30": 45,
+  "active_90": 45,
   "profiles": 43,
   "inboxes": 48,
   "names": 5,
-  "people_30": 23,
+  "people_30": 15,
   "bots": 35,
-  "demo": 7
+  "demo": 0
  },
  "moderation": {
-  "reports": 32,
+  "reports": 43,
   "report_issuers": 3,
   "label_issuers": 1
  },
  "releases": {
   "dev": {
-   "version": "0.6.8",
-   "date": "2026-10-31",
+   "version": "0.6.10.dev25",
+   "date": "2026-11-01",
    "signed_by": "release key"
   },
   "stable": {
-   "version": "0.6.8",
-   "date": "2026-10-31",
+   "version": "0.6.9",
+   "date": "2026-11-01",
    "signed_by": "project key"
   }
  },
@@ -184,11 +188,11 @@
   }
  ],
  "hierarchies": {
-  "total": 32,
-  "updated": "2026-10-24",
+  "total": 33,
+  "updated": "2026-10-31",
   "by_policy": {
    "reserved": 29,
-   "free": 2,
+   "free": 3,
    "governed": 1
   }
  },
@@ -199,7 +203,7 @@
    "automatic": true,
    "policy": "Automatic. Labels posts with profanity (swearing, oaths) and sexual words, from its own word lists in nine languages: whole words and phrases only, at least two in a post or one in a very short post; insults are not labelled. Describes, never sanctions. https://github.com/unseenet/unseenet-watchman",
    "fingerprint": "qsr3vivzigx6ynyk",
-   "published": 19,
+   "published": 28,
    "nodes_following": 0,
    "recommended_for": []
   },
@@ -221,7 +225,7 @@
    "automatic": true,
    "policy": "Automatic. Reports posts that look like spam: the same text from many new keys, the same text from one key in many groups, or links to domains on URI blocklists for spam. A key only after repeated findings, for 30 days. https://github.com/unseenet/unseenet-watchman",
    "fingerprint": "rbct47jjhnp5peqb",
-   "published": 10,
+   "published": 12,
    "nodes_following": 4,
    "recommended_for": []
   },
@@ -237,7 +241,7 @@
   }
  ],
  "canary": {
-  "date": "2026-10-30",
+  "date": "2026-10-31",
   "posted": 4,
   "everywhere": 4
  },
@@ -248,12 +252,12 @@
    "groups": 2
   },
   "nostr": {
-   "articles": 38,
+   "articles": 14,
    "gateways": 1,
    "groups": 2
   },
   "usenet": {
-   "articles": 5969,
+   "articles": 6760,
    "gateways": 2,
    "groups": 24
   }
@@ -445,12 +449,25 @@
   {
    "date": "2026-10-31",
    "categories": {
-    "feed": 390,
-    "post": 7,
-    "imported": 234,
-    "system": 67
+    "feed": 548,
+    "post": 24,
+    "imported": 829,
+    "system": 121,
+    "chat": 7,
+    "page": 2
    },
-   "keys": 28
+   "keys": 36
+  },
+  {
+   "date": "2026-11-01",
+   "categories": {
+    "feed": 220,
+    "page": 13,
+    "system": 27,
+    "imported": 197,
+    "post": 2
+   },
+   "keys": 11
   }
  ]
 }
