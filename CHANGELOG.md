@@ -8,7 +8,7 @@ The daily counts themselves are data commits, not changes listed here.
 
 ## [Unreleased]
 
-For unseenet 0.6 (`unseenet>=0.6,<0.7`): release once the nodes run 0.6.
+Needs unseenet 0.7 (`unseenet>=0.7,<0.8`): update the nodes first.
 
 ### Fixed
 
