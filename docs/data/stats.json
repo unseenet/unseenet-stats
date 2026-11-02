@@ -1,6 +1,6 @@
 {
  "v": 2,
- "generated": "2026-11-02T13:08:21Z",
+ "generated": "2026-11-02T13:27:49Z",
  "categories": [
   "post",
   "chat",
@@ -51,8 +51,8 @@
  },
  "articles": {
   "on_nodes": {
-   "system": 1076,
-   "feed": 1500,
+   "system": 1080,
+   "feed": 1507,
    "reaction": 4,
    "chat": 64,
    "post": 138,
@@ -63,19 +63,19 @@
    "edit": 1
   },
   "system_parts": {
-   "ripening": 172,
+   "ripening": 174,
    "profiles": 96,
    "state": 118,
    "reports": 46,
    "control": 349,
-   "lists": 295
+   "lists": 297
   },
   "counted_since_start": {
-   "system": 1227,
+   "system": 1231,
    "private": 70,
    "post": 181,
    "imported": 6900,
-   "feed": 1508,
+   "feed": 1515,
    "chat": 78,
    "comment": 10,
    "page": 46,
@@ -84,7 +84,7 @@
    "edit": 1
   },
   "by_hierarchy": {
-   "dk": 1031,
+   "dk": 1038,
    "alt": 449,
    "unseenet": 118,
    "demo": 38,
@@ -498,10 +498,10 @@
   {
    "date": "2026-11-02",
    "categories": {
-    "feed": 301,
+    "feed": 308,
     "chat": 11,
     "post": 31,
-    "system": 102,
+    "system": 106,
     "comment": 2
    },
    "keys": 25
