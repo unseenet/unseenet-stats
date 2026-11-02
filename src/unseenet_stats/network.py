@@ -19,6 +19,7 @@ from unseenet.core import crypto, gateways
 from unseenet.core.article import Article, ArticleError, parse_date
 from unseenet.core.groups import Manifest, split_group_id
 from unseenet.core.profiles import profile_from_manifest
+from unseenet.names import MOVED_TO, NAMES_GROUP
 from unseenet.hierarchies import HIERARCHIES_GROUP, parse_hierarchy_list, parse_root_list
 from unseenet.known_nodes import (CANARY_GROUP, ENTRANCES_GROUP, NODES_GROUP, PROJECT_KEY,
                                   RELEASES_GROUP, parse_entrance_list, parse_node_list)
@@ -283,3 +284,73 @@ def issuers(manifests: list[Article], counts: dict[str, int], infos: list[dict],
             "recommended_for": recommend.get(key, []),
         })
     return out
+
+
+# ---------------------------------------------------------------- councils (#18)
+
+# A council's own groups (UN-RFC 0061, UN-RFC 0054 sections 8 and 21) have their own
+# genesis; they are shown as part of the council, not as councils of their own.
+COUNCIL_PARTS = (".proposals", ".talk", ".log", ".claims", ".room")
+REGISTRAR = NAMES_GROUP                 # the project's registrar group (UN-RFC 0019)
+
+
+def registrar_moved_to(arts: list[Article]) -> str | None:
+    """The council the project's registrar moved to (UN-RFC 0054 section 14): ``moved_to``
+    in the newest manifest of unseenet.names that the project key signed, or None."""
+    newest = None
+    for art in arts:
+        if art.group != REGISTRAR or art.control != ["manifest"]:
+            continue
+        try:
+            m = Manifest.from_article(art, stored=True)
+        except ArticleError:
+            continue
+        if crypto.key_to_text(m.owner) != PROJECT_KEY:
+            continue
+        if newest is None or m.supersedes(newest):
+            newest = m
+    moved = newest.raw.get(MOVED_TO) if newest is not None else None
+    return moved if isinstance(moved, str) and moved != REGISTRAR else None
+
+
+def councils(arts: list[Article], now: datetime) -> dict:
+    """The councils that count, counted here from the members' own copies of their
+    manifests (UN-RFC 0054 section 5) - never on a node's word - and who keeps each of
+    the network's shared things: a council, or still the project key."""
+    from unseenet.core import council as cn
+    copies: dict[str, list[tuple[bytes, str]]] = {}
+    for art in arts:
+        if not cn.is_council_manifest(art):
+            continue
+        try:
+            author = crypto.key_from_text(art.get("Author-Key", ""))
+        except (ValueError, TypeError):
+            continue
+        copies.setdefault(art.group, []).append((author, art.body))
+    moved = registrar_moved_to(arts)
+    out = []
+    for gid in sorted(copies):
+        name, _ = split_group_id(gid)
+        if name.endswith(COUNCIL_PARTS):
+            continue
+        chain = cn.count_chain(gid, copies[gid])
+        m = chain.current
+        if m is None:
+            continue
+        f = m.founding
+        out.append({
+            "group": gid, "name": m.name,
+            "keeps": "names" if gid == moved else "",
+            "since": chain.counted[0].date.date().isoformat(),
+            "manifest": m.seq, "members": len(m.keys), "full": len(m.full),
+            "on_probation": len(m.on_probation), "quorum": cn.quorum(len(m.full)),
+            "min_level": m.min_level, "disputed": chain.disputed,
+            "founding_until": f.until.date().isoformat()
+            if f is not None and m.founding_lasts(now) else None,
+        })
+    counted = {c["group"] for c in out}
+    project = "the project key"
+    return {"list": out,
+            "keepers": {"names": moved if moved in counted else project,
+                        "nodes": project, "hierarchies": project, "entrances": project,
+                        "releases": project}}

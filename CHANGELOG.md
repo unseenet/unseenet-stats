@@ -8,6 +8,18 @@ The daily counts themselves are data commits, not changes listed here.
 
 ## [Unreleased]
 
+### Added
+
+- **Councils** (#18): the councils that count in the network (UN-RFC 0054), counted from
+  the members' own copies - members, signatures a change needs, founding period - and who
+  keeps each shared thing today: the names a council once the project's registrar has
+  moved to it, the lists and releases still the project key.
+
+### Fixed
+
+- **Names after the registrar's move**: names given out by the council the project's
+  registrar moved to are counted too (only the move the project key signed counts).
+
 ## [0.3.0] - 2026-11-02
 
 On core 0.7. Needs unseenet 0.7 (`unseenet>=0.7,<0.8`): update the nodes first.

@@ -346,6 +346,54 @@
       en.appendChild(et);
     }
 
+    var co = byId("st-councils");
+    if (co) {
+      co.textContent = "";
+      var cs = d.councils || { list: [], keepers: {} };
+      var kp = cs.keepers || {};
+      var keeps = el("ul", { "class": "st-keepers" });
+      [["names", "Names (@name)"], ["nodes", "The list of nodes"], ["hierarchies", "The hierarchies"],
+       ["entrances", "Web entrances"], ["releases", "Releases"]].forEach(function (x) {
+        if (!kp[x[0]]) { return; }
+        var li = el("li");
+        li.appendChild(el("strong", {}, x[1] + ": "));
+        if (kp[x[0]].indexOf("@") > 0) {
+          li.appendChild(el("span", {}, "a council, "));
+          li.appendChild(el("code", { "class": "st-fp" }, kp[x[0]]));
+        } else {
+          li.appendChild(el("span", {}, kp[x[0]]));
+        }
+        keeps.appendChild(li);
+      });
+      co.appendChild(keeps);
+      if (!(cs.list || []).length) {
+        co.appendChild(el("p", { "class": "st-empty" }, "No council counts in the network yet."));
+      } else {
+        var ct = el("table", { "class": "st-table st-table--wide" });
+        var ch = el("tr");
+        ["Council", "Keeps", "Members", "Signatures for a change", "Founding period", "Since"].forEach(function (x) {
+          ch.appendChild(el("th", { scope: "col" }, x));
+        });
+        ct.appendChild(el("thead")).appendChild(ch);
+        var cb = el("tbody");
+        cs.list.forEach(function (c) {
+          var tr = el("tr");
+          var th = el("th", { scope: "row" });
+          th.appendChild(el("code", { "class": "st-fp" }, c.group));
+          if (c.disputed) { th.appendChild(el("span", { "class": "st-more" }, " disputed")); }
+          tr.appendChild(th);
+          tr.appendChild(el("td", {}, c.keeps || "-"));
+          tr.appendChild(el("td", {}, c.full + " full" + (c.on_probation ? ", " + c.on_probation + " on probation" : "")));
+          tr.appendChild(el("td", {}, c.quorum + " of " + c.full));
+          tr.appendChild(el("td", {}, c.founding_until ? "until " + c.founding_until : "-"));
+          tr.appendChild(el("td", {}, c.since));
+          cb.appendChild(tr);
+        });
+        ct.appendChild(cb);
+        co.appendChild(ct);
+      }
+    }
+
     var lists = byId("st-lists");
     lists.textContent = "";
     var hi = d.hierarchies || {};

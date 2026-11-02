@@ -126,6 +126,13 @@ async def read_key_bound(c: Client, r: NodeReading, now: datetime | None = None)
             r.groups.setdefault(group, []).append(msgid)
 
 
+def _registrar(group: str) -> bool:
+    """unseenet.names and the groups it may have moved to (a council's, UN-RFC 0054
+    section 14): their subjects are the names given out. Which one counts is decided
+    after the crawl, from the project key's own manifest."""
+    return group == NAMES_GROUP or group.partition("@")[0] == "unseenet.names"
+
+
 async def read_node(address: str, socks_port: int | None) -> NodeReading:
     r = NodeReading(address)
     c = await Client.connect(address, socks_port)
@@ -149,13 +156,13 @@ async def read_node(address: str, socks_port: int | None) -> NodeReading:
             for g in batch:
                 commands.append(f"GROUP {g}")
                 commands += [f"HDR {f} 1-" for f in FIELDS]
-                if g == NAMES_GROUP or g in network.SUBJECT_GROUPS:
+                if _registrar(g) or g in network.SUBJECT_GROUPS:
                     commands.append("HDR Subject 1-")
             answers = iter(await pipeline(c, commands))
             for g in batch:
                 code, _ = next(answers)
                 per_field = {}
-                with_subject = g == NAMES_GROUP or g in network.SUBJECT_GROUPS
+                with_subject = _registrar(g) or g in network.SUBJECT_GROUPS
                 for f in FIELDS + (("Subject",) if with_subject else ()):
                     fcode, lines = next(answers)
                     if code == 211 and fcode == 225:
@@ -175,7 +182,7 @@ async def read_node(address: str, socks_port: int | None) -> NodeReading:
                 if with_subject:
                     subj = per_field.get("subject", {})
                     r.subjects[g] = [(ids.get(n, ""), v) for n, v in subj.items()] \
-                        if g != NAMES_GROUP else list(subj.values())
+                        if not _registrar(g) else list(subj.values())
         await read_key_bound(c, r)
     finally:
         try:
@@ -331,6 +338,10 @@ async def crawl(addresses: list[str] | None, socks_port: int | None,
     all_groups = {g for r in readings for g in r.groups}
     result.groups = {g: group_info(g, by_group.get(g, [])) for g in sorted(all_groups)}
 
+    # The registrar: unseenet.names, and the council it moved to (#18). Only the move the
+    # project key signed counts, so another group named unseenet.names adds nothing.
+    moved = network.registrar_moved_to(fetched)
+    registrars = [NAMES_GROUP] + ([moved] if moved else [])
     for r in readings:
         for msgid, h in r.headers.items():
             if msgid in result.articles:
@@ -345,9 +356,10 @@ async def crawl(addresses: list[str] | None, socks_port: int | None,
                                           author=h.get("author-key", ""),
                                           network=h.get("origin-network", "").lower()[:32],
                                           part=system_part(h, g) if cat == SYSTEM else "")
-        for subject in r.subjects.get(NAMES_GROUP, []):
-            if subject.startswith("name "):
-                result.names.add(subject[5:].strip().lower())
+        for g in registrars:
+            for subject in r.subjects.get(g, []):
+                if subject.startswith("name "):
+                    result.names.add(subject[5:].strip().lower())
 
     # The network's own lists (network.py): releases, nodes, entrances, gateways,
     # hierarchies, canaries, and who is a bot or a demo person.
@@ -391,6 +403,7 @@ async def crawl(addresses: list[str] | None, socks_port: int | None,
              and a.control and a.control[0] == "manifest"],
             published, [r.info for r in readings], network.recommended(
                 fetched, lists, lambda g: result.groups.get(g, GroupInfo(g)).starters)),
+        "councils": network.councils(fetched, started),
         "canary": network.canary([r.subjects.get(CANARY_GROUP, []) for r in readings],
                                  started.date()),
     }
