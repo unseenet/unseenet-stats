@@ -8,7 +8,9 @@ The daily counts themselves are data commits, not changes listed here.
 
 ## [Unreleased]
 
-Needs unseenet 0.7 (`unseenet>=0.7,<0.8`): update the nodes first.
+## [0.3.0] - 2026-11-02
+
+On core 0.7. Needs unseenet 0.7 (`unseenet>=0.7,<0.8`): update the nodes first.
 
 ### Fixed
 
@@ -62,6 +64,7 @@ The first release. Works with unseenet 0.4 (`unseenet>=0.4.1,<0.5`).
   [stats.unseenet.org](https://stats.unseenet.org), branded like
   unseenet.org.
 
-[Unreleased]: https://github.com/unseenet/unseenet-stats/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/unseenet/unseenet-stats/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/unseenet/unseenet-stats/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/unseenet/unseenet-stats/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/unseenet/unseenet-stats/releases/tag/v0.1.0
