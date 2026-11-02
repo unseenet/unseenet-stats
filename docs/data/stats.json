@@ -1,6 +1,6 @@
 {
  "v": 2,
- "generated": "2026-11-01T11:48:57Z",
+ "generated": "2026-11-02T13:08:21Z",
  "categories": [
   "post",
   "chat",
@@ -18,20 +18,20 @@
   "listed": 4,
   "reached": 4,
   "versions": {
-   "unseenet 0.6.6": 4
+   "unseenet 0.7.0": 4
   },
   "list_updated": "2026-10-17"
  },
  "groups": {
-  "total": 93,
+  "total": 98,
   "by_type": {
    "channel": 50,
    "moderated": 32,
-   "open": 11
+   "open": 16
   },
   "by_view": {
    "feed": 47,
-   "threads": 36,
+   "threads": 41,
    "chat": 8,
    "pages": 2
   },
@@ -39,7 +39,7 @@
    "test": 33,
    "alt": 31,
    "dk": 16,
-   "unseenet": 6,
+   "unseenet": 11,
    "demo": 5,
    "docs": 1,
    "matrix": 1
@@ -51,73 +51,73 @@
  },
  "articles": {
   "on_nodes": {
-   "system": 973,
-   "feed": 1029,
+   "system": 1076,
+   "feed": 1500,
    "reaction": 4,
-   "chat": 52,
-   "post": 103,
+   "chat": 64,
+   "post": 138,
    "private": 70,
    "page": 31,
-   "imported": 6778,
-   "comment": 6,
+   "imported": 6849,
+   "comment": 8,
    "edit": 1
   },
   "system_parts": {
-   "ripening": 118,
-   "profiles": 104,
-   "state": 104,
-   "reports": 43,
-   "control": 328,
-   "lists": 276
+   "ripening": 172,
+   "profiles": 96,
+   "state": 118,
+   "reports": 46,
+   "control": 349,
+   "lists": 295
   },
   "counted_since_start": {
-   "system": 1094,
+   "system": 1227,
    "private": 70,
-   "post": 146,
-   "imported": 6823,
-   "feed": 1037,
-   "chat": 66,
-   "comment": 8,
+   "post": 181,
+   "imported": 6900,
+   "feed": 1508,
+   "chat": 78,
+   "comment": 10,
    "page": 46,
    "reaction": 6,
    "closed": 2,
    "edit": 1
   },
   "by_hierarchy": {
-   "dk": 633,
-   "alt": 387,
-   "unseenet": 83,
-   "demo": 27,
+   "dk": 1031,
+   "alt": 449,
+   "unseenet": 118,
+   "demo": 38,
    "docs": 10,
    "matrix": 5,
-   "test": 4
+   "test": 5
   }
  },
  "keys": {
-  "active_7": 38,
-  "active_30": 45,
-  "active_90": 45,
+  "active_7": 41,
+  "active_30": 48,
+  "active_90": 48,
   "profiles": 43,
-  "inboxes": 48,
+  "inboxes": 51,
   "names": 5,
-  "people_30": 15,
+  "people_30": 18,
   "bots": 35,
   "demo": 0
  },
  "moderation": {
-  "reports": 43,
+  "reports": 46,
   "report_issuers": 3,
   "label_issuers": 1
  },
  "releases": {
   "dev": {
-   "version": "0.6.10.dev25",
-   "date": "2026-11-01",
+   "version": "0.7.1.dev2",
+   "date": "2026-11-02",
    "signed_by": "release key"
   },
   "stable": {
-   "version": "0.6.9",
-   "date": "2026-11-01",
+   "version": "0.7.0",
+   "date": "2026-11-02",
    "signed_by": "project key"
   }
  },
@@ -154,7 +154,7 @@
     90
    ]
   },
-  "on_stable": 0
+  "on_stable": 4
  },
  "entrances": {
   "listed": 2,
@@ -188,11 +188,11 @@
   }
  ],
  "hierarchies": {
-  "total": 33,
+  "total": 34,
   "updated": "2026-10-31",
   "by_policy": {
    "reserved": 29,
-   "free": 3,
+   "free": 4,
    "governed": 1
   }
  },
@@ -203,7 +203,7 @@
    "automatic": true,
    "policy": "Automatic. Labels posts with profanity (swearing, oaths) and sexual words, from its own word lists in nine languages: whole words and phrases only, at least two in a post or one in a very short post; insults are not labelled. Describes, never sanctions. https://github.com/unseenet/unseenet-watchman",
    "fingerprint": "qsr3vivzigx6ynyk",
-   "published": 28,
+   "published": 31,
    "nodes_following": 0,
    "recommended_for": []
   },
@@ -240,8 +240,33 @@
    "recommended_for": []
   }
  ],
+ "councils": {
+  "list": [
+   {
+    "group": "unseenet.names@xvchjwehdhfptpza",
+    "name": "unseenet.names",
+    "keeps": "names",
+    "since": "2026-11-02",
+    "manifest": 1,
+    "members": 3,
+    "full": 3,
+    "on_probation": 0,
+    "quorum": 2,
+    "min_level": 3,
+    "disputed": false,
+    "founding_until": "2029-11-02"
+   }
+  ],
+  "keepers": {
+   "names": "unseenet.names@xvchjwehdhfptpza",
+   "nodes": "the project key",
+   "hierarchies": "the project key",
+   "entrances": "the project key",
+   "releases": "the project key"
+  }
+ },
  "canary": {
-  "date": "2026-10-31",
+  "date": "2026-11-01",
   "posted": 4,
   "everywhere": 4
  },
@@ -252,12 +277,12 @@
    "groups": 2
   },
   "nostr": {
-   "articles": 14,
+   "articles": 8,
    "gateways": 1,
    "groups": 2
   },
   "usenet": {
-   "articles": 6760,
+   "articles": 6837,
    "gateways": 2,
    "groups": 24
   }
@@ -461,13 +486,25 @@
   {
    "date": "2026-11-01",
    "categories": {
-    "feed": 220,
+    "feed": 390,
     "page": 13,
-    "system": 27,
-    "imported": 197,
-    "post": 2
+    "system": 58,
+    "imported": 274,
+    "post": 6,
+    "chat": 1
    },
-   "keys": 11
+   "keys": 15
+  },
+  {
+   "date": "2026-11-02",
+   "categories": {
+    "feed": 301,
+    "chat": 11,
+    "post": 31,
+    "system": 102,
+    "comment": 2
+   },
+   "keys": 25
   }
  ]
 }
