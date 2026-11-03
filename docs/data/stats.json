@@ -1,6 +1,6 @@
 {
  "v": 2,
- "generated": "2026-11-02T13:27:49Z",
+ "generated": "2026-11-03T12:45:47Z",
  "categories": [
   "post",
   "chat",
@@ -18,44 +18,45 @@
   "listed": 4,
   "reached": 4,
   "versions": {
-   "unseenet 0.7.0": 4
+   "unseenet 0.7.0": 3,
+   "unseenet 0.7.1": 1
   },
   "list_updated": "2026-10-17"
  },
  "groups": {
-  "total": 98,
+  "total": 108,
   "by_type": {
    "channel": 50,
    "moderated": 32,
-   "open": 16
+   "open": 26
   },
   "by_view": {
+   "threads": 51,
    "feed": 47,
-   "threads": 41,
    "chat": 8,
    "pages": 2
   },
   "by_hierarchy": {
    "test": 33,
    "alt": 31,
+   "unseenet": 21,
    "dk": 16,
-   "unseenet": 11,
    "demo": 5,
    "docs": 1,
    "matrix": 1
   },
   "personal": {
-   "feeds": 8,
+   "feeds": 9,
    "sites": 6
   }
  },
  "articles": {
   "on_nodes": {
-   "system": 1080,
-   "feed": 1507,
+   "system": 1159,
+   "feed": 2023,
    "reaction": 4,
-   "chat": 64,
-   "post": 138,
+   "chat": 66,
+   "post": 193,
    "private": 70,
    "page": 31,
    "imported": 6849,
@@ -63,20 +64,20 @@
    "edit": 1
   },
   "system_parts": {
-   "ripening": 174,
+   "ripening": 175,
    "profiles": 96,
-   "state": 118,
-   "reports": 46,
-   "control": 349,
-   "lists": 297
+   "state": 144,
+   "reports": 47,
+   "control": 386,
+   "lists": 311
   },
   "counted_since_start": {
-   "system": 1231,
+   "system": 1321,
    "private": 70,
-   "post": 181,
+   "post": 236,
    "imported": 6900,
-   "feed": 1515,
-   "chat": 78,
+   "feed": 2031,
+   "chat": 80,
    "comment": 10,
    "page": 46,
    "reaction": 6,
@@ -84,9 +85,9 @@
    "edit": 1
   },
   "by_hierarchy": {
-   "dk": 1038,
-   "alt": 449,
-   "unseenet": 118,
+   "dk": 1475,
+   "alt": 528,
+   "unseenet": 173,
    "demo": 38,
    "docs": 10,
    "matrix": 5,
@@ -94,25 +95,25 @@
   }
  },
  "keys": {
-  "active_7": 41,
-  "active_30": 48,
-  "active_90": 48,
+  "active_7": 42,
+  "active_30": 49,
+  "active_90": 49,
   "profiles": 43,
-  "inboxes": 51,
+  "inboxes": 53,
   "names": 5,
-  "people_30": 18,
+  "people_30": 19,
   "bots": 35,
   "demo": 0
  },
  "moderation": {
-  "reports": 46,
+  "reports": 47,
   "report_issuers": 3,
   "label_issuers": 1
  },
  "releases": {
   "dev": {
-   "version": "0.7.1.dev2",
-   "date": "2026-11-02",
+   "version": "0.7.2.dev36",
+   "date": "2026-11-03",
    "signed_by": "release key"
   },
   "stable": {
@@ -154,7 +155,7 @@
     90
    ]
   },
-  "on_stable": 4
+  "on_stable": 3
  },
  "entrances": {
   "listed": 2,
@@ -203,7 +204,7 @@
    "automatic": true,
    "policy": "Automatic. Labels posts with profanity (swearing, oaths) and sexual words, from its own word lists in nine languages: whole words and phrases only, at least two in a post or one in a very short post; insults are not labelled. Describes, never sanctions. https://github.com/unseenet/unseenet-watchman",
    "fingerprint": "qsr3vivzigx6ynyk",
-   "published": 31,
+   "published": 32,
    "nodes_following": 0,
    "recommended_for": []
   },
@@ -243,6 +244,62 @@
  "councils": {
   "list": [
    {
+    "group": "unseenet.gateways@fzfnyoi7woukrk4k",
+    "name": "unseenet.gateways",
+    "keeps": "",
+    "since": "2026-11-02",
+    "manifest": 1,
+    "members": 3,
+    "full": 3,
+    "on_probation": 0,
+    "quorum": 2,
+    "min_level": 3,
+    "disputed": false,
+    "founding_until": null
+   },
+   {
+    "group": "unseenet.hierarchies@mgfepu2oyno57n7l",
+    "name": "unseenet.hierarchies",
+    "keeps": "",
+    "since": "2026-11-02",
+    "manifest": 1,
+    "members": 3,
+    "full": 3,
+    "on_probation": 0,
+    "quorum": 2,
+    "min_level": 3,
+    "disputed": false,
+    "founding_until": null
+   },
+   {
+    "group": "unseenet.lists.reports@27hi42lyuil34u7n",
+    "name": "unseenet.lists.reports",
+    "keeps": "",
+    "since": "2026-11-02",
+    "manifest": 1,
+    "members": 3,
+    "full": 3,
+    "on_probation": 0,
+    "quorum": 2,
+    "min_level": 3,
+    "disputed": false,
+    "founding_until": "2029-11-02"
+   },
+   {
+    "group": "unseenet.lists@727td54rrn4glwoh",
+    "name": "unseenet.lists",
+    "keeps": "",
+    "since": "2026-11-02",
+    "manifest": 1,
+    "members": 3,
+    "full": 3,
+    "on_probation": 0,
+    "quorum": 2,
+    "min_level": 3,
+    "disputed": false,
+    "founding_until": "2029-11-02"
+   },
+   {
     "group": "unseenet.names@xvchjwehdhfptpza",
     "name": "unseenet.names",
     "keeps": "names",
@@ -255,6 +312,34 @@
     "min_level": 3,
     "disputed": false,
     "founding_until": "2029-11-02"
+   },
+   {
+    "group": "unseenet.nodes@gjv472lkhc375x4h",
+    "name": "unseenet.nodes",
+    "keeps": "",
+    "since": "2026-11-02",
+    "manifest": 1,
+    "members": 3,
+    "full": 3,
+    "on_probation": 0,
+    "quorum": 2,
+    "min_level": 3,
+    "disputed": false,
+    "founding_until": "2029-11-02"
+   },
+   {
+    "group": "unseenet.sources@33adc73r3fncuznp",
+    "name": "unseenet.sources",
+    "keeps": "",
+    "since": "2026-11-03",
+    "manifest": 1,
+    "members": 3,
+    "full": 3,
+    "on_probation": 0,
+    "quorum": 2,
+    "min_level": 3,
+    "disputed": false,
+    "founding_until": null
    }
   ],
   "keepers": {
@@ -266,7 +351,7 @@
   }
  },
  "canary": {
-  "date": "2026-11-01",
+  "date": "2026-11-02",
   "posted": 4,
   "everywhere": 4
  },
@@ -498,13 +583,22 @@
   {
    "date": "2026-11-02",
    "categories": {
-    "feed": 308,
-    "chat": 11,
-    "post": 31,
-    "system": 106,
+    "feed": 528,
+    "chat": 13,
+    "post": 68,
+    "system": 169,
     "comment": 2
    },
-   "keys": 25
+   "keys": 35
+  },
+  {
+   "date": "2026-11-03",
+   "categories": {
+    "feed": 296,
+    "system": 27,
+    "post": 18
+   },
+   "keys": 17
   }
  ]
 }
