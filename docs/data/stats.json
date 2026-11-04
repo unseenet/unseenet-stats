@@ -1,6 +1,6 @@
 {
  "v": 2,
- "generated": "2026-11-03T12:45:47Z",
+ "generated": "2026-11-04T12:57:59Z",
  "categories": [
   "post",
   "chat",
@@ -52,42 +52,42 @@
  },
  "articles": {
   "on_nodes": {
-   "system": 1159,
-   "feed": 2023,
-   "reaction": 4,
+   "system": 1201,
+   "feed": 2572,
+   "reaction": 5,
    "chat": 66,
-   "post": 193,
-   "private": 70,
+   "post": 200,
+   "private": 88,
    "page": 31,
    "imported": 6849,
    "comment": 8,
    "edit": 1
   },
   "system_parts": {
-   "ripening": 175,
-   "profiles": 96,
-   "state": 144,
+   "ripening": 171,
+   "profiles": 93,
+   "state": 168,
    "reports": 47,
-   "control": 386,
-   "lists": 311
+   "control": 405,
+   "lists": 317
   },
   "counted_since_start": {
-   "system": 1321,
-   "private": 70,
-   "post": 236,
+   "system": 1373,
+   "private": 88,
+   "post": 243,
    "imported": 6900,
-   "feed": 2031,
+   "feed": 2580,
    "chat": 80,
    "comment": 10,
    "page": 46,
-   "reaction": 6,
+   "reaction": 7,
    "closed": 2,
    "edit": 1
   },
   "by_hierarchy": {
-   "dk": 1475,
-   "alt": 528,
-   "unseenet": 173,
+   "dk": 1922,
+   "alt": 629,
+   "unseenet": 180,
    "demo": 38,
    "docs": 10,
    "matrix": 5,
@@ -95,11 +95,11 @@
   }
  },
  "keys": {
-  "active_7": 42,
-  "active_30": 49,
-  "active_90": 49,
+  "active_7": 43,
+  "active_30": 50,
+  "active_90": 50,
   "profiles": 43,
-  "inboxes": 53,
+  "inboxes": 57,
   "names": 5,
   "people_30": 19,
   "bots": 35,
@@ -244,51 +244,12 @@
  "councils": {
   "list": [
    {
-    "group": "unseenet.gateways@fzfnyoi7woukrk4k",
-    "name": "unseenet.gateways",
-    "keeps": "",
-    "since": "2026-11-02",
-    "manifest": 1,
-    "members": 3,
-    "full": 3,
-    "on_probation": 0,
-    "quorum": 2,
-    "min_level": 3,
-    "disputed": false,
-    "founding_until": null
-   },
-   {
-    "group": "unseenet.hierarchies@mgfepu2oyno57n7l",
-    "name": "unseenet.hierarchies",
-    "keeps": "",
-    "since": "2026-11-02",
-    "manifest": 1,
-    "members": 3,
-    "full": 3,
-    "on_probation": 0,
-    "quorum": 2,
-    "min_level": 3,
-    "disputed": false,
-    "founding_until": null
-   },
-   {
-    "group": "unseenet.lists.reports@27hi42lyuil34u7n",
-    "name": "unseenet.lists.reports",
-    "keeps": "",
-    "since": "2026-11-02",
-    "manifest": 1,
-    "members": 3,
-    "full": 3,
-    "on_probation": 0,
-    "quorum": 2,
-    "min_level": 3,
-    "disputed": false,
-    "founding_until": "2029-11-02"
-   },
-   {
     "group": "unseenet.lists@727td54rrn4glwoh",
     "name": "unseenet.lists",
-    "keeps": "",
+    "keeps": [],
+    "takes_on": [
+     "nodes"
+    ],
     "since": "2026-11-02",
     "manifest": 1,
     "members": 3,
@@ -297,12 +258,65 @@
     "quorum": 2,
     "min_level": 3,
     "disputed": false,
-    "founding_until": "2029-11-02"
+    "founding_until": "2029-11-02",
+    "parts": [
+     {
+      "group": "unseenet.nodes@gjv472lkhc375x4h",
+      "role": "the list of nodes",
+      "kind": "nodes",
+      "counts": true,
+      "in_step": true,
+      "moved": false
+     },
+     {
+      "group": "unseenet.lists.claims@gxxnmizpk4r5jl35",
+      "role": "hierarchy claims",
+      "kind": "",
+      "counts": true,
+      "in_step": true,
+      "moved": false
+     },
+     {
+      "group": "unseenet.lists.reports@27hi42lyuil34u7n",
+      "role": "measurements (reports)",
+      "kind": "",
+      "counts": true,
+      "in_step": true,
+      "moved": false
+     },
+     {
+      "group": "unseenet.lists.proposals@oekxy7cbxvezla4f",
+      "role": "proposals",
+      "kind": "",
+      "counts": true,
+      "in_step": true,
+      "moved": false
+     },
+     {
+      "group": "unseenet.lists.talk@kqnzkpehce6a3f4d",
+      "role": "talk",
+      "kind": "",
+      "counts": true,
+      "in_step": true,
+      "moved": false
+     },
+     {
+      "group": "unseenet.lists.log@n2yigha5ahdg76o2",
+      "role": "log",
+      "kind": "",
+      "counts": true,
+      "in_step": true,
+      "moved": false
+     }
+    ]
    },
    {
     "group": "unseenet.names@xvchjwehdhfptpza",
     "name": "unseenet.names",
-    "keeps": "names",
+    "keeps": [
+     "names"
+    ],
+    "takes_on": [],
     "since": "2026-11-02",
     "manifest": 1,
     "members": 3,
@@ -311,35 +325,73 @@
     "quorum": 2,
     "min_level": 3,
     "disputed": false,
-    "founding_until": "2029-11-02"
+    "founding_until": "2029-11-02",
+    "parts": [
+     {
+      "group": "unseenet.names.claims@cpphmdeq57oz4omb",
+      "role": "name claims",
+      "kind": "",
+      "counts": true,
+      "in_step": true,
+      "moved": false
+     },
+     {
+      "group": "unseenet.names.proposals@kbxsj7hfmpusksot",
+      "role": "proposals",
+      "kind": "",
+      "counts": true,
+      "in_step": true,
+      "moved": false
+     },
+     {
+      "group": "unseenet.names.talk@kzf4hg6vourxezk4",
+      "role": "talk",
+      "kind": "",
+      "counts": true,
+      "in_step": true,
+      "moved": false
+     },
+     {
+      "group": "unseenet.names.log@l3r7ievzehgxtz3c",
+      "role": "log",
+      "kind": "",
+      "counts": true,
+      "in_step": true,
+      "moved": false
+     }
+    ]
+   }
+  ],
+  "waiting": [
+   {
+    "group": "unseenet.gateways@fzfnyoi7woukrk4k",
+    "name": "unseenet.gateways",
+    "members": 3,
+    "full": 3,
+    "since": "2026-11-02",
+    "same_as": [
+     "unseenet.lists@727td54rrn4glwoh",
+     "unseenet.names@xvchjwehdhfptpza"
+    ]
    },
    {
-    "group": "unseenet.nodes@gjv472lkhc375x4h",
-    "name": "unseenet.nodes",
-    "keeps": "",
-    "since": "2026-11-02",
-    "manifest": 1,
+    "group": "unseenet.hierarchies@mgfepu2oyno57n7l",
+    "name": "unseenet.hierarchies",
     "members": 3,
     "full": 3,
-    "on_probation": 0,
-    "quorum": 2,
-    "min_level": 3,
-    "disputed": false,
-    "founding_until": "2029-11-02"
+    "since": "2026-11-02",
+    "same_as": [
+     "unseenet.lists@727td54rrn4glwoh",
+     "unseenet.names@xvchjwehdhfptpza"
+    ]
    },
    {
     "group": "unseenet.sources@33adc73r3fncuznp",
     "name": "unseenet.sources",
-    "keeps": "",
-    "since": "2026-11-03",
-    "manifest": 1,
     "members": 3,
     "full": 3,
-    "on_probation": 0,
-    "quorum": 2,
-    "min_level": 3,
-    "disputed": false,
-    "founding_until": null
+    "since": "2026-11-03",
+    "same_as": []
    }
   ],
   "keepers": {
@@ -347,11 +399,12 @@
    "nodes": "the project key",
    "hierarchies": "the project key",
    "entrances": "the project key",
+   "gateways": "the project key",
    "releases": "the project key"
   }
  },
  "canary": {
-  "date": "2026-11-02",
+  "date": "2026-11-03",
   "posted": 4,
   "everywhere": 4
  },
@@ -594,11 +647,23 @@
   {
    "date": "2026-11-03",
    "categories": {
-    "feed": 296,
-    "system": 27,
-    "post": 18
+    "feed": 532,
+    "system": 55,
+    "post": 18,
+    "reaction": 1,
+    "private": 8
    },
-   "keys": 17
+   "keys": 23
+  },
+  {
+   "date": "2026-11-04",
+   "categories": {
+    "feed": 313,
+    "system": 24,
+    "private": 10,
+    "post": 7
+   },
+   "keys": 20
   }
  ]
 }
