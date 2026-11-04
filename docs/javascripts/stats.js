@@ -349,11 +349,12 @@
     var co = byId("st-councils");
     if (co) {
       co.textContent = "";
-      var cs = d.councils || { list: [], keepers: {} };
+      var cs = d.councils || { list: [], waiting: [], keepers: {} };
       var kp = cs.keepers || {};
       var keeps = el("ul", { "class": "st-keepers" });
       [["names", "Names (@name)"], ["nodes", "The list of nodes"], ["hierarchies", "The hierarchies"],
-       ["entrances", "Web entrances"], ["releases", "Releases"]].forEach(function (x) {
+       ["entrances", "Web entrances"], ["gateways", "The gateway directory"],
+       ["releases", "Releases"]].forEach(function (x) {
         if (!kp[x[0]]) { return; }
         var li = el("li");
         li.appendChild(el("strong", {}, x[1] + ": "));
@@ -366,31 +367,90 @@
         keeps.appendChild(li);
       });
       co.appendChild(keeps);
+      var kinds = { names: "names", nodes: "the node list", hierarchies: "the hierarchies",
+                    entrances: "the entrance list", gateways: "the gateway directory" };
+      var said = function (xs) { return xs.map(function (k) { return kinds[k] || k; }).join(", "); };
       if (!(cs.list || []).length) {
         co.appendChild(el("p", { "class": "st-empty" }, "No council counts in the network yet."));
       } else {
         var ct = el("table", { "class": "st-table st-table--wide" });
         var ch = el("tr");
-        ["Council", "Keeps", "Members", "Signatures for a change", "Founding period", "Since"].forEach(function (x) {
+        ["Council and its groups", "Keeps", "Members", "Signatures for a change", "Founding period", "Since"].forEach(function (x) {
           ch.appendChild(el("th", { scope: "col" }, x));
         });
         ct.appendChild(el("thead")).appendChild(ch);
         var cb = el("tbody");
         cs.list.forEach(function (c) {
-          var tr = el("tr");
+          var tr = el("tr", { "class": "st-council" });
           var th = el("th", { scope: "row" });
+          th.appendChild(el("strong", {}, c.name));
           th.appendChild(el("code", { "class": "st-fp" }, c.group));
           if (c.disputed) { th.appendChild(el("span", { "class": "st-more" }, " disputed")); }
           tr.appendChild(th);
-          tr.appendChild(el("td", {}, c.keeps || "-"));
+          var kl = Array.isArray(c.keeps) ? c.keeps : (c.keeps ? [c.keeps] : []);   // older stats.json
+          var tl = c.takes_on || [];
+          var what = kl.length ? said(kl) : "nothing yet";
+          if (tl.length) { what += " (ready to take on " + said(tl) + ")"; }
+          tr.appendChild(el("td", {}, what));
           tr.appendChild(el("td", {}, c.full + " full" + (c.on_probation ? ", " + c.on_probation + " on probation" : "")));
           tr.appendChild(el("td", {}, c.quorum + " of " + c.full));
-          tr.appendChild(el("td", {}, c.founding_until ? "until " + c.founding_until : "-"));
-          tr.appendChild(el("td", {}, c.since));
+          tr.appendChild(el("td", { "class": "st-nowrap" }, c.founding_until ? "until " + c.founding_until : "-"));
+          tr.appendChild(el("td", { "class": "st-nowrap" }, c.since));
           cb.appendChild(tr);
+          var own = ["proposals", "talk", "log", "room (closed)"];
+          var rows = [], talk = [];
+          (c.parts || []).forEach(function (p) { (own.indexOf(p.role) >= 0 ? talk : rows).push(p); });
+          if (talk.length) {                        // the council's own talk, as one row
+            rows.push({ role: talk.map(function (p) { return p.role; }).join(", "),
+                        groups: talk.map(function (p) { return p.group; }), kind: "",
+                        counts: talk.every(function (p) { return p.counts; }),
+                        in_step: talk.every(function (p) { return p.in_step; }) });
+          }
+          rows.forEach(function (p) {
+            var pr = el("tr", { "class": "st-part" });
+            var ph = el("th", { scope: "row" });
+            ph.appendChild(el("span", {}, p.role));
+            (p.groups || [p.group]).forEach(function (g) {
+              ph.appendChild(el("code", { "class": "st-fp" }, g));
+            });
+            pr.appendChild(ph);
+            var state = !p.counts ? "does not count yet"
+              : !p.in_step ? "members not in step with the council yet"
+              : p.moved ? "the council's - clients follow it"
+              : p.kind ? "kept by the council, not moved from the project key yet"
+              : "same members as the council";
+            var td = el("td", { colspan: "5" }, state);
+            pr.appendChild(td);
+            cb.appendChild(pr);
+          });
         });
         ct.appendChild(cb);
         co.appendChild(ct);
+      }
+      if ((cs.waiting || []).length) {
+        co.appendChild(el("p", { "class": "st-panel__note" },
+          "Groups held by council keys that no council has taken on yet - usually a list " +
+          "waiting for its hearing. They change nothing until a council's manifest names them."));
+        var wt = el("table", { "class": "st-table st-table--wide" });
+        var wh = el("tr");
+        ["Group", "Members", "Same members as", "Since"].forEach(function (x) {
+          wh.appendChild(el("th", { scope: "col" }, x));
+        });
+        wt.appendChild(el("thead")).appendChild(wh);
+        var wb = el("tbody");
+        cs.waiting.forEach(function (w) {
+          var tr = el("tr");
+          var th = el("th", { scope: "row" });
+          th.appendChild(el("code", { "class": "st-fp" }, w.group));
+          tr.appendChild(th);
+          tr.appendChild(el("td", {}, w.full + " full"));
+          tr.appendChild(el("td", {}, w.same_as.length ? w.same_as.map(function (g) {
+            return g.split("@")[0]; }).join(", ") : "-"));
+          tr.appendChild(el("td", {}, w.since));
+          wb.appendChild(tr);
+        });
+        wt.appendChild(wb);
+        co.appendChild(wt);
       }
     }
 

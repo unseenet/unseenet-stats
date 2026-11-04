@@ -153,10 +153,13 @@ much of the traffic is the project testing itself.</p>
 ## Councils { #councils }
 
 <div class="st-panel">
-  <p class="st-panel__note">A council is a set of keys that keeps one shared thing by public
-  rules (UN-RFC 0054): a change counts only when enough members sign the same. Counted here
-  from the members' own signed copies, never on a node's word. Below: who keeps each of the
-  network's shared things today - a council, or still the project's key.</p>
+  <p class="st-panel__note">A council is a set of keys that keeps shared things by public
+  rules (UN-RFC 0054): a change counts only when enough members sign the same. Each list a
+  council keeps lives in a group of its own, held by the same members (UN-RFC 0020), so a
+  council is shown here with its groups. Counted from the members' own signed copies, never
+  on a node's word. First: who keeps each of the network's shared things today - a council,
+  or still the project's key. A thing moves to a council only when the project key says so
+  in the old group.</p>
   <div id="st-councils"></div>
 </div>
 
