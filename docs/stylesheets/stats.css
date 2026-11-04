@@ -235,3 +235,7 @@
 .md-typeset ul.st-keepers { list-style: none; margin: 0.4rem 0 0.8rem; padding: 0; font-size: 0.75rem; }
 .md-typeset ul.st-keepers li { margin: 0.15rem 0; }
 .md-typeset ul.st-keepers code.st-fp { font-size: .68rem; }
+.md-typeset table.st-table tr.st-council th, .md-typeset table.st-table tr.st-council td { border-top: 1px solid var(--md-default-fg-color--lightest); }
+.md-typeset table.st-table tr.st-part th { padding-left: 1.2em; font-weight: 400; }
+.md-typeset table.st-table td.st-nowrap { white-space: nowrap; }
+.md-typeset table.st-table tr.st-part td { color: var(--md-default-fg-color--light); }

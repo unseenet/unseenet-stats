@@ -288,18 +288,34 @@ def issuers(manifests: list[Article], counts: dict[str, int], infos: list[dict],
 
 # ---------------------------------------------------------------- councils (#18)
 
-# A council's own groups (UN-RFC 0061, UN-RFC 0054 sections 8 and 21) have their own
-# genesis; they are shown as part of the council, not as councils of their own.
-COUNCIL_PARTS = (".proposals", ".talk", ".log", ".claims", ".room")
+# A council is a set of keys that keeps something: a registrar (``claims``, UN-RFC 0054
+# section 8) or lists (``lists``, UN-RFC 0020 section 4). Every other group it names -
+# its list groups, reports, claims, announcement groups, proposals, talk, log and room -
+# is a council group of the same members too, with a genesis of its own. Those are shown
+# as parts of their council, not as councils of their own.
+COUNCIL_PARTS = (".proposals", ".talk", ".log", ".claims", ".room", ".reports")
 REGISTRAR = NAMES_GROUP                 # the project's registrar group (UN-RFC 0019)
+# The project's old groups, by what they keep. Each moves to a council with a last
+# manifest the project key signs, naming it in ``moved_to`` (UN-RFC 0054 section 14,
+# UN-RFC 0020 section 10; the gateway directory names the new directory itself).
+OLD_GROUPS = {"names": NAMES_GROUP, "nodes": NODES_GROUP,
+              "hierarchies": HIERARCHIES_GROUP, "entrances": ENTRANCES_GROUP,
+              "gateways": DIRECTORY_GROUP}
+KEPT = ("names", "nodes", "hierarchies", "entrances", "gateways", "releases")
+_LIST_KIND = {"nodes": "nodes", "root": "hierarchies", "entrances": "entrances"}
+_LIST_ROLE = {"nodes": "the list of nodes", "root": "the hierarchies (root list)",
+              "entrances": "the list of web entrances", "scribes": "the list of scribes",
+              "sources": "where releases are fetched (sources list)"}
+_OWN_ROLE = {"claims": "claims", "reports": "measurements (reports)",
+             "proposals": "proposals", "talk": "talk", "log": "log", "room": "room (closed)"}
 
 
-def registrar_moved_to(arts: list[Article]) -> str | None:
-    """The council the project's registrar moved to (UN-RFC 0054 section 14): ``moved_to``
-    in the newest manifest of unseenet.names that the project key signed, or None."""
+def moved_to(arts: list[Article], group: str) -> str | None:
+    """Where ``group`` moved (UN-RFC 0054 section 14): ``moved_to`` in the newest
+    manifest of it that the project key signed, or None."""
     newest = None
     for art in arts:
-        if art.group != REGISTRAR or art.control != ["manifest"]:
+        if art.group != group or art.control != ["manifest"]:
             continue
         try:
             m = Manifest.from_article(art, stored=True)
@@ -310,12 +326,51 @@ def registrar_moved_to(arts: list[Article]) -> str | None:
         if newest is None or m.supersedes(newest):
             newest = m
     moved = newest.raw.get(MOVED_TO) if newest is not None else None
-    return moved if isinstance(moved, str) and moved != REGISTRAR else None
+    return moved if isinstance(moved, str) and moved != group else None
+
+
+def registrar_moved_to(arts: list[Article]) -> str | None:
+    """The council the project's registrar moved to, or None."""
+    return moved_to(arts, REGISTRAR)
+
+
+def _parts(data: dict) -> list[tuple[str, str, str]]:
+    """(group, role, kind) of the groups a council names in its manifest; ``kind`` is
+    what that group keeps for the network (``nodes``, ``hierarchies``, ...) or ''."""
+    out = []
+    lists = data.get("lists") if isinstance(data.get("lists"), dict) else {}
+    for kind, g in sorted(lists.items()):
+        if isinstance(g, str):
+            out.append((g, _LIST_ROLE.get(kind, f"the {kind} list"), _LIST_KIND.get(kind, "")))
+    announce = data.get("announce") if isinstance(data.get("announce"), dict) else {}
+    for kind, g in sorted(announce.items()):
+        if isinstance(g, str):
+            if kind == "gateways":
+                out.append((g, "the gateway directory", "gateways"))
+            else:
+                out.append((g, f"where {kind} announce themselves", ""))
+    for k, role in _OWN_ROLE.items():
+        g = data.get(k)
+        if isinstance(g, str):
+            if k == "claims":
+                role = "hierarchy claims" if lists else "name claims"
+            out.append((g, role, ""))
+    seen, uniq = set(), []
+    for p in out:
+        if p[0] not in seen:
+            seen.add(p[0])
+            uniq.append(p)
+    return uniq
+
+
+def _members(m) -> list:
+    return [x.as_json() for x in m.members]
 
 
 def councils(arts: list[Article], now: datetime) -> dict:
     """The councils that count, counted here from the members' own copies of their
-    manifests (UN-RFC 0054 section 5) - never on a node's word - and who keeps each of
+    manifests (UN-RFC 0054 section 5) - never on a node's word - each with the groups
+    it keeps; the council groups not (yet) part of any council; and who keeps each of
     the network's shared things: a council, or still the project key."""
     from unseenet.core import council as cn
     copies: dict[str, list[tuple[bytes, str]]] = {}
@@ -327,30 +382,68 @@ def councils(arts: list[Article], now: datetime) -> dict:
         except (ValueError, TypeError):
             continue
         copies.setdefault(art.group, []).append((author, art.body))
-    moved = registrar_moved_to(arts)
-    out = []
+    chains = {}
     for gid in sorted(copies):
-        name, _ = split_group_id(gid)
-        if name.endswith(COUNCIL_PARTS):
-            continue
         chain = cn.count_chain(gid, copies[gid])
+        if chain.current is not None:
+            chains[gid] = chain
+    heads = {g for g, c in chains.items()
+             if "claims" in c.current.data or "lists" in c.current.data}
+    parts_of = {g: _parts(chains[g].current.data) for g in heads}
+    named = {p for ps in parts_of.values() for p, _, _ in ps}
+    moved = {k: moved_to(arts, REGISTRAR if k == "names" else g) for k, g in OLD_GROUPS.items()}
+
+    def keeper(kind: str) -> str | None:
+        to = moved.get(kind)
+        if to is None:
+            return None
+        for g in heads:
+            if to == g or to in {p for p, _, _ in parts_of[g]}:
+                return g
+        return None
+
+    keepers = {k: keeper(k) or "the project key" for k in KEPT}
+    out = []
+    for gid in sorted(heads):
+        chain = chains[gid]
         m = chain.current
-        if m is None:
-            continue
         f = m.founding
+        parts = []
+        takes_on = []
+        for g, role, kind in parts_of[gid]:
+            pc = chains.get(g)
+            if kind:
+                takes_on.append(kind)
+            parts.append({
+                "group": g, "role": role, "kind": kind,
+                "counts": pc is not None,
+                "in_step": pc is not None and not pc.disputed
+                and _members(pc.current) == _members(m),
+                "moved": bool(kind) and keepers.get(kind) == gid,
+            })
         out.append({
             "group": gid, "name": m.name,
-            "keeps": "names" if gid == moved else "",
+            "keeps": [k for k in KEPT if keepers[k] == gid],
+            "takes_on": [k for k in takes_on if keepers.get(k) != gid],
             "since": chain.counted[0].date.date().isoformat(),
             "manifest": m.seq, "members": len(m.keys), "full": len(m.full),
             "on_probation": len(m.on_probation), "quorum": cn.quorum(len(m.full)),
             "min_level": m.min_level, "disputed": chain.disputed,
             "founding_until": f.until.date().isoformat()
             if f is not None and m.founding_lasts(now) else None,
+            "parts": parts,
         })
-    counted = {c["group"] for c in out}
-    project = "the project key"
-    return {"list": out,
-            "keepers": {"names": moved if moved in counted else project,
-                        "nodes": project, "hierarchies": project, "entrances": project,
-                        "releases": project}}
+    waiting = []
+    for gid in sorted(chains):
+        if gid in heads or gid in named:
+            continue
+        name, _ = split_group_id(gid)
+        if name.endswith(COUNCIL_PARTS):
+            continue
+        m = chains[gid].current
+        waiting.append({
+            "group": gid, "name": m.name, "members": len(m.keys), "full": len(m.full),
+            "since": chains[gid].counted[0].date.date().isoformat(),
+            "same_as": [g for g in sorted(heads) if _members(chains[g].current) == _members(m)],
+        })
+    return {"list": out, "waiting": waiting, "keepers": keepers}
