@@ -1,6 +1,6 @@
 {
  "v": 2,
- "generated": "2026-11-06T12:57:23Z",
+ "generated": "2026-11-07T11:42:59Z",
  "categories": [
   "post",
   "chat",
@@ -52,31 +52,31 @@
  },
  "articles": {
   "on_nodes": {
-   "system": 1246,
-   "feed": 3664,
+   "system": 1232,
+   "feed": 4139,
    "reaction": 5,
    "chat": 66,
-   "post": 237,
+   "post": 258,
    "private": 92,
    "page": 31,
-   "imported": 6849,
+   "imported": 6845,
    "comment": 8,
    "edit": 1
   },
   "system_parts": {
-   "ripening": 162,
-   "profiles": 93,
-   "state": 213,
+   "ripening": 130,
+   "profiles": 83,
+   "state": 235,
    "reports": 47,
    "control": 402,
-   "lists": 329
+   "lists": 335
   },
   "counted_since_start": {
-   "system": 1437,
+   "system": 1468,
    "private": 92,
-   "post": 280,
+   "post": 301,
    "imported": 6900,
-   "feed": 3672,
+   "feed": 4147,
    "chat": 80,
    "comment": 10,
    "page": 46,
@@ -85,9 +85,9 @@
    "edit": 1
   },
   "by_hierarchy": {
-   "dk": 2821,
-   "alt": 820,
-   "unseenet": 217,
+   "dk": 3188,
+   "alt": 925,
+   "unseenet": 238,
    "demo": 38,
    "docs": 10,
    "matrix": 5,
@@ -95,7 +95,7 @@
   }
  },
  "keys": {
-  "active_7": 43,
+  "active_7": 42,
   "active_30": 50,
   "active_90": 50,
   "profiles": 43,
@@ -112,8 +112,8 @@
  },
  "releases": {
   "dev": {
-   "version": "0.7.2.dev55",
-   "date": "2026-11-06",
+   "version": "0.7.2.dev56",
+   "date": "2026-11-07",
    "signed_by": "release key"
   },
   "stable": {
@@ -404,7 +404,7 @@
   }
  },
  "canary": {
-  "date": "2026-11-05",
+  "date": "2026-11-06",
   "posted": 4,
   "everywhere": 4
  },
@@ -415,7 +415,7 @@
    "groups": 2
   },
   "nostr": {
-   "articles": 8,
+   "articles": 4,
    "gateways": 1,
    "groups": 2
   },
@@ -677,11 +677,20 @@
   {
    "date": "2026-11-06",
    "categories": {
-    "feed": 318,
-    "system": 20,
-    "post": 11
+    "feed": 568,
+    "system": 33,
+    "post": 16
    },
-   "keys": 16
+   "keys": 26
+  },
+  {
+   "date": "2026-11-07",
+   "categories": {
+    "feed": 225,
+    "system": 18,
+    "post": 16
+   },
+   "keys": 19
   }
  ]
 }
