@@ -1,6 +1,6 @@
 {
  "v": 2,
- "generated": "2026-11-08T11:54:53Z",
+ "generated": "2026-11-09T13:51:48Z",
  "categories": [
   "post",
   "chat",
@@ -52,50 +52,50 @@
  },
  "articles": {
   "on_nodes": {
-   "system": 1260,
-   "feed": 4497,
+   "system": 1241,
+   "feed": 4948,
    "reaction": 5,
-   "chat": 66,
-   "post": 274,
+   "chat": 72,
+   "post": 290,
    "private": 92,
    "page": 31,
    "imported": 6844,
-   "comment": 8,
+   "comment": 10,
    "edit": 1
   },
   "system_parts": {
-   "ripening": 127,
+   "ripening": 94,
    "profiles": 83,
-   "state": 259,
+   "state": 266,
    "reports": 48,
    "control": 402,
-   "lists": 341
+   "lists": 348
   },
   "counted_since_start": {
-   "system": 1502,
+   "system": 1519,
    "private": 92,
-   "post": 317,
+   "post": 333,
    "imported": 6900,
-   "feed": 4505,
-   "chat": 80,
-   "comment": 10,
+   "feed": 4956,
+   "chat": 86,
+   "comment": 12,
    "page": 46,
    "reaction": 7,
    "closed": 2,
    "edit": 1
   },
   "by_hierarchy": {
-   "dk": 3496,
-   "alt": 974,
-   "unseenet": 254,
-   "demo": 38,
+   "dk": 3876,
+   "alt": 1034,
+   "unseenet": 270,
+   "demo": 44,
    "docs": 10,
    "matrix": 5,
    "test": 5
   }
  },
  "keys": {
-  "active_7": 41,
+  "active_7": 37,
   "active_30": 50,
   "active_90": 50,
   "profiles": 43,
@@ -111,15 +111,15 @@
   "label_issuers": 1
  },
  "releases": {
-  "dev": {
-   "version": "0.7.2.dev57",
-   "date": "2026-11-08",
-   "signed_by": "release key"
-  },
   "stable": {
    "version": "0.7.0",
    "date": "2026-11-02",
    "signed_by": "project key"
+  },
+  "dev": {
+   "version": "0.7.2.dev58",
+   "date": "2026-11-09",
+   "signed_by": "release key"
   }
  },
  "node_list": {
@@ -404,7 +404,7 @@
   }
  },
  "canary": {
-  "date": "2026-11-07",
+  "date": "2026-11-08",
   "posted": 4,
   "everywhere": 4
  },
@@ -695,11 +695,22 @@
   {
    "date": "2026-11-08",
    "categories": {
-    "feed": 207,
-    "system": 19,
+    "feed": 362,
+    "system": 29,
     "post": 16
    },
-   "keys": 15
+   "keys": 17
+  },
+  {
+   "date": "2026-11-09",
+   "categories": {
+    "feed": 296,
+    "chat": 6,
+    "system": 7,
+    "post": 16,
+    "comment": 2
+   },
+   "keys": 24
   }
  ]
 }
