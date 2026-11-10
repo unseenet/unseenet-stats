@@ -1,6 +1,6 @@
 {
  "v": 2,
- "generated": "2026-11-09T13:51:48Z",
+ "generated": "2026-11-10T13:26:44Z",
  "categories": [
   "post",
   "chat",
@@ -52,11 +52,11 @@
  },
  "articles": {
   "on_nodes": {
-   "system": 1241,
-   "feed": 4948,
+   "system": 1243,
+   "feed": 5459,
    "reaction": 5,
    "chat": 72,
-   "post": 290,
+   "post": 306,
    "private": 92,
    "page": 31,
    "imported": 6844,
@@ -64,19 +64,19 @@
    "edit": 1
   },
   "system_parts": {
-   "ripening": 94,
+   "ripening": 89,
    "profiles": 83,
    "state": 266,
-   "reports": 48,
-   "control": 402,
-   "lists": 348
+   "reports": 49,
+   "control": 403,
+   "lists": 353
   },
   "counted_since_start": {
-   "system": 1519,
+   "system": 1528,
    "private": 92,
-   "post": 333,
+   "post": 349,
    "imported": 6900,
-   "feed": 4956,
+   "feed": 5467,
    "chat": 86,
    "comment": 12,
    "page": 46,
@@ -85,9 +85,9 @@
    "edit": 1
   },
   "by_hierarchy": {
-   "dk": 3876,
-   "alt": 1034,
-   "unseenet": 270,
+   "dk": 4298,
+   "alt": 1122,
+   "unseenet": 286,
    "demo": 44,
    "docs": 10,
    "matrix": 5,
@@ -95,7 +95,7 @@
   }
  },
  "keys": {
-  "active_7": 37,
+  "active_7": 36,
   "active_30": 50,
   "active_90": 50,
   "profiles": 43,
@@ -106,20 +106,20 @@
   "demo": 0
  },
  "moderation": {
-  "reports": 48,
+  "reports": 49,
   "report_issuers": 3,
   "label_issuers": 1
  },
  "releases": {
-  "stable": {
-   "version": "0.7.0",
-   "date": "2026-11-02",
-   "signed_by": "project key"
-  },
   "dev": {
    "version": "0.7.2.dev58",
    "date": "2026-11-09",
    "signed_by": "release key"
+  },
+  "stable": {
+   "version": "0.7.0",
+   "date": "2026-11-02",
+   "signed_by": "project key"
   }
  },
  "node_list": {
@@ -204,7 +204,7 @@
    "automatic": true,
    "policy": "Automatic. Labels posts with profanity (swearing, oaths) and sexual words, from its own word lists in nine languages: whole words and phrases only, at least two in a post or one in a very short post; insults are not labelled. Describes, never sanctions. https://github.com/unseenet/unseenet-watchman",
    "fingerprint": "qsr3vivzigx6ynyk",
-   "published": 33,
+   "published": 34,
    "nodes_following": 0,
    "recommended_for": []
   },
@@ -404,7 +404,7 @@
   }
  },
  "canary": {
-  "date": "2026-11-08",
+  "date": "2026-11-09",
   "posted": 4,
   "everywhere": 4
  },
@@ -704,13 +704,22 @@
   {
    "date": "2026-11-09",
    "categories": {
-    "feed": 296,
+    "feed": 547,
     "chat": 6,
-    "system": 7,
+    "system": 11,
     "post": 16,
     "comment": 2
    },
-   "keys": 24
+   "keys": 31
+  },
+  {
+   "date": "2026-11-10",
+   "categories": {
+    "feed": 260,
+    "system": 5,
+    "post": 16
+   },
+   "keys": 20
   }
  ]
 }
