@@ -1,6 +1,6 @@
 {
  "v": 2,
- "generated": "2026-11-12T13:43:58Z",
+ "generated": "2026-11-13T13:06:19Z",
  "categories": [
   "post",
   "chat",
@@ -52,31 +52,31 @@
  },
  "articles": {
   "on_nodes": {
-   "system": 1252,
-   "feed": 6572,
+   "system": 1260,
+   "feed": 7085,
    "reaction": 5,
    "chat": 72,
-   "post": 338,
+   "post": 351,
    "private": 92,
    "page": 31,
-   "imported": 2174,
+   "imported": 1539,
    "comment": 10,
    "edit": 1
   },
   "system_parts": {
-   "ripening": 88,
+   "ripening": 87,
    "profiles": 83,
-   "state": 267,
-   "reports": 49,
+   "state": 270,
+   "reports": 50,
    "control": 402,
-   "lists": 363
+   "lists": 368
   },
   "counted_since_start": {
-   "system": 1544,
+   "system": 1555,
    "private": 92,
-   "post": 381,
+   "post": 394,
    "imported": 6900,
-   "feed": 6580,
+   "feed": 7093,
    "chat": 86,
    "comment": 12,
    "page": 46,
@@ -85,9 +85,9 @@
    "edit": 1
   },
   "by_hierarchy": {
-   "dk": 5227,
-   "alt": 1304,
-   "unseenet": 318,
+   "dk": 5640,
+   "alt": 1403,
+   "unseenet": 331,
    "demo": 44,
    "docs": 10,
    "matrix": 5,
@@ -95,7 +95,7 @@
   }
  },
  "keys": {
-  "active_7": 36,
+  "active_7": 37,
   "active_30": 50,
   "active_90": 50,
   "profiles": 43,
@@ -106,14 +106,14 @@
   "demo": 0
  },
  "moderation": {
-  "reports": 49,
+  "reports": 50,
   "report_issuers": 3,
   "label_issuers": 1
  },
  "releases": {
   "dev": {
    "version": "0.7.2.dev58",
-   "date": "2026-11-11",
+   "date": "2026-11-12",
    "signed_by": "release key"
   },
   "stable": {
@@ -204,7 +204,7 @@
    "automatic": true,
    "policy": "Automatic. Labels posts with profanity (swearing, oaths) and sexual words, from its own word lists in nine languages: whole words and phrases only, at least two in a post or one in a very short post; insults are not labelled. Describes, never sanctions. https://github.com/unseenet/unseenet-watchman",
    "fingerprint": "qsr3vivzigx6ynyk",
-   "published": 34,
+   "published": 35,
    "nodes_following": 0,
    "recommended_for": []
   },
@@ -404,7 +404,7 @@
   }
  },
  "canary": {
-  "date": "2026-11-11",
+  "date": "2026-11-12",
   "posted": 4,
   "everywhere": 4
  },
@@ -420,7 +420,7 @@
    "groups": 1
   },
   "usenet": {
-   "articles": 2167,
+   "articles": 1532,
    "gateways": 2,
    "groups": 20
   }
@@ -733,11 +733,20 @@
   {
    "date": "2026-11-12",
    "categories": {
-    "feed": 266,
-    "system": 6,
+    "feed": 557,
+    "system": 9,
     "post": 16
    },
-   "keys": 20
+   "keys": 25
+  },
+  {
+   "date": "2026-11-13",
+   "categories": {
+    "feed": 222,
+    "system": 8,
+    "post": 13
+   },
+   "keys": 21
   }
  ]
 }
