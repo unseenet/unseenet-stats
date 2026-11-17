@@ -1,6 +1,6 @@
 {
  "v": 2,
- "generated": "2026-11-16T13:38:14Z",
+ "generated": "2026-11-17T14:21:12Z",
  "categories": [
   "post",
   "chat",
@@ -52,31 +52,31 @@
  },
  "articles": {
   "on_nodes": {
-   "system": 1295,
-   "feed": 8320,
+   "system": 1297,
+   "feed": 8944,
    "reaction": 5,
    "chat": 72,
-   "post": 395,
-   "private": 80,
+   "post": 405,
+   "private": 62,
    "page": 31,
-   "imported": 7,
+   "imported": 5,
    "comment": 10,
    "edit": 1
   },
   "system_parts": {
-   "ripening": 85,
+   "ripening": 83,
    "profiles": 83,
    "state": 289,
-   "reports": 52,
-   "control": 401,
-   "lists": 385
+   "reports": 53,
+   "control": 400,
+   "lists": 389
   },
   "counted_since_start": {
-   "system": 1601,
+   "system": 1608,
    "private": 95,
-   "post": 438,
+   "post": 449,
    "imported": 6900,
-   "feed": 8328,
+   "feed": 8952,
    "chat": 86,
    "comment": 12,
    "page": 46,
@@ -85,28 +85,28 @@
    "edit": 1
   },
   "by_hierarchy": {
-   "dk": 6675,
-   "alt": 1598,
-   "unseenet": 375,
+   "dk": 7200,
+   "alt": 1696,
+   "unseenet": 386,
    "demo": 44,
    "docs": 10,
    "matrix": 5,
-   "test": 5
+   "test": 4
   }
  },
  "keys": {
   "active_7": 32,
-  "active_30": 50,
+  "active_30": 48,
   "active_90": 50,
   "profiles": 43,
   "inboxes": 57,
   "names": 5,
-  "people_30": 19,
+  "people_30": 17,
   "bots": 35,
   "demo": 0
  },
  "moderation": {
-  "reports": 52,
+  "reports": 53,
   "report_issuers": 3,
   "label_issuers": 1
  },
@@ -204,7 +204,7 @@
    "automatic": true,
    "policy": "Automatic. Labels posts with profanity (swearing, oaths) and sexual words, from its own word lists in nine languages: whole words and phrases only, at least two in a post or one in a very short post; insults are not labelled. Describes, never sanctions. https://github.com/unseenet/unseenet-watchman",
    "fingerprint": "qsr3vivzigx6ynyk",
-   "published": 37,
+   "published": 38,
    "nodes_following": 0,
    "recommended_for": []
   },
@@ -404,7 +404,7 @@
   }
  },
  "canary": {
-  "date": "2026-11-15",
+  "date": "2026-11-16",
   "posted": 4,
   "everywhere": 4
  },
@@ -415,7 +415,7 @@
    "groups": 2
   },
   "nostr": {
-   "articles": 3,
+   "articles": 1,
    "gateways": 1,
    "groups": 1
   }
@@ -765,11 +765,20 @@
   {
    "date": "2026-11-16",
    "categories": {
-    "feed": 205,
-    "system": 8,
+    "feed": 530,
+    "system": 10,
     "post": 14
    },
-   "keys": 22
+   "keys": 26
+  },
+  {
+   "date": "2026-11-17",
+   "categories": {
+    "feed": 299,
+    "system": 5,
+    "post": 11
+   },
+   "keys": 19
   }
  ]
 }
