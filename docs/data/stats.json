@@ -1,6 +1,6 @@
 {
  "v": 2,
- "generated": "2026-11-18T13:55:59Z",
+ "generated": "2026-11-19T14:23:54Z",
  "categories": [
   "post",
   "chat",
@@ -52,31 +52,31 @@
  },
  "articles": {
   "on_nodes": {
-   "system": 1304,
-   "feed": 9489,
+   "system": 1308,
+   "feed": 10078,
    "reaction": 5,
    "chat": 72,
-   "post": 442,
-   "private": 54,
+   "post": 464,
+   "private": 45,
    "page": 31,
    "imported": 3,
    "comment": 10,
    "edit": 1
   },
   "system_parts": {
-   "ripening": 83,
+   "ripening": 84,
    "profiles": 83,
    "state": 289,
-   "reports": 54,
-   "control": 401,
-   "lists": 394
+   "reports": 56,
+   "control": 397,
+   "lists": 399
   },
   "counted_since_start": {
-   "system": 1623,
+   "system": 1632,
    "private": 95,
-   "post": 489,
+   "post": 511,
    "imported": 6900,
-   "feed": 9497,
+   "feed": 10086,
    "chat": 86,
    "comment": 12,
    "page": 46,
@@ -85,9 +85,9 @@
    "edit": 1
   },
   "by_hierarchy": {
-   "dk": 7640,
-   "alt": 1800,
-   "unseenet": 426,
+   "dk": 8131,
+   "alt": 1897,
+   "unseenet": 448,
    "demo": 44,
    "docs": 10,
    "matrix": 5,
@@ -96,24 +96,24 @@
  },
  "keys": {
   "active_7": 32,
-  "active_30": 47,
+  "active_30": 46,
   "active_90": 49,
   "profiles": 43,
   "inboxes": 57,
   "names": 5,
-  "people_30": 16,
+  "people_30": 15,
   "bots": 35,
   "demo": 0
  },
  "moderation": {
-  "reports": 54,
+  "reports": 56,
   "report_issuers": 3,
   "label_issuers": 1
  },
  "releases": {
   "dev": {
    "version": "0.7.2.dev58",
-   "date": "2026-11-17",
+   "date": "2026-11-18",
    "signed_by": "release key"
   },
   "stable": {
@@ -204,7 +204,7 @@
    "automatic": true,
    "policy": "Automatic. Labels posts with profanity (swearing, oaths) and sexual words, from its own word lists in nine languages: whole words and phrases only, at least two in a post or one in a very short post; insults are not labelled. Describes, never sanctions. https://github.com/unseenet/unseenet-watchman",
    "fingerprint": "qsr3vivzigx6ynyk",
-   "published": 39,
+   "published": 41,
    "nodes_following": 0,
    "recommended_for": []
   },
@@ -400,7 +400,7 @@
   }
  },
  "canary": {
-  "date": "2026-11-17",
+  "date": "2026-11-18",
   "posted": 4,
   "everywhere": 4
  },
@@ -774,11 +774,20 @@
   {
    "date": "2026-11-18",
    "categories": {
-    "feed": 264,
-    "system": 5,
-    "post": 13
+    "feed": 554,
+    "system": 8,
+    "post": 18
    },
-   "keys": 20
+   "keys": 26
+  },
+  {
+   "date": "2026-11-19",
+   "categories": {
+    "feed": 299,
+    "system": 6,
+    "post": 17
+   },
+   "keys": 23
   }
  ]
 }
