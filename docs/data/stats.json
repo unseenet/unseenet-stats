@@ -1,6 +1,6 @@
 {
  "v": 2,
- "generated": "2026-11-21T13:26:55Z",
+ "generated": "2026-11-22T13:18:32Z",
  "categories": [
   "post",
   "chat",
@@ -52,31 +52,31 @@
  },
  "articles": {
   "on_nodes": {
-   "system": 1320,
-   "feed": 11070,
+   "system": 1326,
+   "feed": 11419,
    "reaction": 5,
    "chat": 72,
-   "post": 493,
-   "private": 44,
+   "post": 510,
+   "private": 43,
    "page": 31,
    "imported": 3,
    "comment": 10,
    "edit": 1
   },
   "system_parts": {
-   "ripening": 83,
+   "ripening": 84,
    "profiles": 83,
    "state": 289,
    "reports": 59,
-   "control": 397,
-   "lists": 409
+   "control": 395,
+   "lists": 416
   },
   "counted_since_start": {
-   "system": 1649,
+   "system": 1659,
    "private": 95,
-   "post": 540,
+   "post": 557,
    "imported": 6900,
-   "feed": 11078,
+   "feed": 11427,
    "chat": 86,
    "comment": 12,
    "page": 46,
@@ -85,9 +85,9 @@
    "edit": 1
   },
   "by_hierarchy": {
-   "dk": 8951,
-   "alt": 2067,
-   "unseenet": 477,
+   "dk": 9253,
+   "alt": 2113,
+   "unseenet": 494,
    "demo": 44,
    "docs": 10,
    "matrix": 5,
@@ -96,12 +96,12 @@
  },
  "keys": {
   "active_7": 32,
-  "active_30": 45,
+  "active_30": 43,
   "active_90": 49,
   "profiles": 43,
   "inboxes": 57,
   "names": 5,
-  "people_30": 14,
+  "people_30": 12,
   "bots": 35,
   "demo": 0
  },
@@ -118,7 +118,7 @@
   },
   "dev": {
    "version": "0.7.2.dev58",
-   "date": "2026-11-20",
+   "date": "2026-11-21",
    "signed_by": "release key"
   }
  },
@@ -400,7 +400,7 @@
   }
  },
  "canary": {
-  "date": "2026-11-20",
+  "date": "2026-11-21",
   "posted": 4,
   "everywhere": 4
  },
@@ -801,11 +801,20 @@
   {
    "date": "2026-11-21",
    "categories": {
-    "feed": 176,
-    "system": 5,
+    "feed": 365,
+    "system": 8,
+    "post": 17
+   },
+   "keys": 21
+  },
+  {
+   "date": "2026-11-22",
+   "categories": {
+    "feed": 160,
+    "system": 7,
     "post": 12
    },
-   "keys": 14
+   "keys": 12
   }
  ]
 }
