@@ -1,6 +1,6 @@
 {
  "v": 2,
- "generated": "2026-11-23T15:56:12Z",
+ "generated": "2026-11-24T15:50:20Z",
  "categories": [
   "post",
   "chat",
@@ -52,12 +52,12 @@
  },
  "articles": {
   "on_nodes": {
-   "system": 1329,
-   "feed": 11967,
+   "system": 1333,
+   "feed": 12539,
    "reaction": 5,
    "chat": 77,
-   "post": 532,
-   "private": 43,
+   "post": 549,
+   "private": 42,
    "page": 31,
    "imported": 3,
    "comment": 12,
@@ -68,15 +68,15 @@
    "profiles": 83,
    "state": 289,
    "reports": 59,
-   "control": 395,
-   "lists": 420
+   "control": 394,
+   "lists": 425
   },
   "counted_since_start": {
-   "system": 1669,
+   "system": 1676,
    "private": 95,
-   "post": 579,
+   "post": 596,
    "imported": 6900,
-   "feed": 11975,
+   "feed": 12547,
    "chat": 91,
    "comment": 14,
    "page": 46,
@@ -85,9 +85,9 @@
    "edit": 1
   },
   "by_hierarchy": {
-   "dk": 9719,
-   "alt": 2184,
-   "unseenet": 516,
+   "dk": 10203,
+   "alt": 2271,
+   "unseenet": 533,
    "demo": 49,
    "docs": 10,
    "matrix": 5,
@@ -118,7 +118,7 @@
   },
   "dev": {
    "version": "0.7.2.dev58",
-   "date": "2026-11-22",
+   "date": "2026-11-23",
    "signed_by": "release key"
   }
  },
@@ -400,7 +400,7 @@
   }
  },
  "canary": {
-  "date": "2026-11-22",
+  "date": "2026-11-23",
   "posted": 4,
   "everywhere": 4
  },
@@ -819,13 +819,22 @@
   {
    "date": "2026-11-23",
    "categories": {
-    "feed": 341,
+    "feed": 561,
     "chat": 5,
-    "system": 6,
+    "system": 8,
     "post": 17,
     "comment": 2
    },
-   "keys": 27
+   "keys": 31
+  },
+  {
+   "date": "2026-11-24",
+   "categories": {
+    "feed": 352,
+    "system": 5,
+    "post": 17
+   },
+   "keys": 23
   }
  ]
 }
