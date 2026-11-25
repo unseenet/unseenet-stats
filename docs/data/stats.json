@@ -1,6 +1,6 @@
 {
  "v": 2,
- "generated": "2026-11-24T15:50:20Z",
+ "generated": "2026-11-25T15:33:55Z",
  "categories": [
   "post",
   "chat",
@@ -52,12 +52,12 @@
  },
  "articles": {
   "on_nodes": {
-   "system": 1333,
-   "feed": 12539,
+   "system": 1338,
+   "feed": 13114,
    "reaction": 5,
    "chat": 77,
-   "post": 549,
-   "private": 42,
+   "post": 567,
+   "private": 40,
    "page": 31,
    "imported": 3,
    "comment": 12,
@@ -67,16 +67,16 @@
    "ripening": 83,
    "profiles": 83,
    "state": 289,
-   "reports": 59,
-   "control": 394,
-   "lists": 425
+   "reports": 61,
+   "control": 392,
+   "lists": 430
   },
   "counted_since_start": {
-   "system": 1676,
+   "system": 1685,
    "private": 95,
-   "post": 596,
+   "post": 614,
    "imported": 6900,
-   "feed": 12547,
+   "feed": 13122,
    "chat": 91,
    "comment": 14,
    "page": 46,
@@ -85,9 +85,9 @@
    "edit": 1
   },
   "by_hierarchy": {
-   "dk": 10203,
-   "alt": 2271,
-   "unseenet": 533,
+   "dk": 10679,
+   "alt": 2369,
+   "unseenet": 551,
    "demo": 49,
    "docs": 10,
    "matrix": 5,
@@ -106,7 +106,7 @@
   "demo": 0
  },
  "moderation": {
-  "reports": 59,
+  "reports": 61,
   "report_issuers": 3,
   "label_issuers": 1
  },
@@ -118,7 +118,7 @@
   },
   "dev": {
    "version": "0.7.2.dev58",
-   "date": "2026-11-23",
+   "date": "2026-11-24",
    "signed_by": "release key"
   }
  },
@@ -204,7 +204,7 @@
    "automatic": true,
    "policy": "Automatic. Labels posts with profanity (swearing, oaths) and sexual words, from its own word lists in nine languages: whole words and phrases only, at least two in a post or one in a very short post; insults are not labelled. Describes, never sanctions. https://github.com/unseenet/unseenet-watchman",
    "fingerprint": "qsr3vivzigx6ynyk",
-   "published": 44,
+   "published": 46,
    "nodes_following": 0,
    "recommended_for": []
   },
@@ -400,7 +400,7 @@
   }
  },
  "canary": {
-  "date": "2026-11-23",
+  "date": "2026-11-24",
   "posted": 4,
   "everywhere": 4
  },
@@ -830,11 +830,20 @@
   {
    "date": "2026-11-24",
    "categories": {
-    "feed": 352,
-    "system": 5,
+    "feed": 570,
+    "system": 8,
+    "post": 18
+   },
+   "keys": 26
+  },
+  {
+   "date": "2026-11-25",
+   "categories": {
+    "feed": 357,
+    "system": 6,
     "post": 17
    },
-   "keys": 23
+   "keys": 25
   }
  ]
 }
